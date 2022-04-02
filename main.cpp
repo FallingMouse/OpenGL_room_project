@@ -27,7 +27,7 @@ std::vector<Shader> shaderList;
 
 float yaw = 0.0f, pitch = 0.0f;
 
-unsigned int squareTextures[4];
+unsigned int squareTextures[8];
 
 //Vertex Shader
 static const char* vShader = "Shaders/shader.vert";
@@ -127,7 +127,7 @@ void CreateSquare()
 
     Mesh *obj2 = new Mesh();
     obj2 -> CreateMesh(SQvertices, SQindices, 5*24, 3*12);
-    for(int i = 0; i < 3; i++) {
+    for(int i = 0; i < 8; i++) {
         meshList.push_back(obj2);
     }
 }
@@ -222,6 +222,10 @@ int main()
     unsigned int textureCloth = loadTexture("Textures/cloth.jpg");
     unsigned int textureWall = loadTexture("Textures/wall.jpg");
     unsigned int textureFloor = loadTexture("Textures/floor.jpg");
+    unsigned int textureBackground = loadTexture("Textures/background.jpg");
+    unsigned int textureTable1 = loadTexture("Textures/table1.jpg");
+    unsigned int textureTable2 = loadTexture("Textures/table2.jpg");
+    unsigned int textureTable3 = loadTexture("Textures/table3.jpg");
 
     //Loop until window closed
     while (!mainWindow.getShouldClose())
@@ -258,20 +262,6 @@ int main()
         uniformView = shaderList[0].GetUniformLocation("view");
         uniformProjection = shaderList[0].GetUniformLocation("projection");
 
-        glm::vec3 pyramidPositions[] =
-        {
-            // glm::vec3(0.0f, 0.0f, 2.5f),
-            // glm::vec3( 2.0f, 5.0f, -15.0f),
-            // glm::vec3(-1.5f, -2.2f, -2.5f),
-            // glm::vec3(-3.8f, -2.0f, -12.3f),
-            // glm::vec3( 2.4f, -0.4f, -3.5f),
-            // glm::vec3(-1.7f, 3.0f, -7.5f),
-            // glm::vec3( 1.3f, -2.0f, -2.5f),
-            // glm::vec3( 1.5f, 2.0f, -2.5f),
-            // glm::vec3( 1.5f, 0.2f, -1.5f),
-            // glm::vec3(-1.3f, 1.0f, -1.5f)
-        }; 
-
         glm::vec3 squarePositions[] =
         {
             //         Positions            // i    description
@@ -284,7 +274,12 @@ int main()
             // glm::vec3(1.0f, -1.0f, 1.0f),   // 3    horizontal top plate
             // glm::vec3(1.0f, 0.01f, 0.2f)    // 4    horizontal bottom plate
 
-
+            // table
+            glm::vec3(1.0f, 24.0f, 1.67f),    // 5   top
+            glm::vec3(1.0f, 0.94f, 2.9f),     // 6   right big chest
+            glm::vec3(1.0f, 0.94f, 46.0f),    // 7   left leg 1
+            glm::vec3(15.0f, 0.94f, 46.0f),    // 8   left leg 2
+            glm::vec3(1.0f, 8.5f, 3.8f),    // 8   left chest
         };
         
         glm::mat4 view (1.0f);
@@ -305,23 +300,9 @@ int main()
         //Object
         glm::mat4 model(1.0f);
 
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 8; i++)
         {
             glm::mat4 model (1.0f);
-
-            // //Pyramid 
-            // if(i < 2 ) {
-            //     model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
-            //     model = glm::translate(model, pyramidPositions[i]);
-            //     squareTextures[i] = textureCloth;
-
-            // //Square
-            // } else if(i < 4) {
-            //     model = glm::scale(model, glm::vec3(0.8f, 0.8f, 0.8f));
-            //     model = glm::translate(model, squarePositions[i]);
-            //     squareTextures[i] = textureContainer;
-            // }
-
 
             // wall
             if(i == 0)  // wall 1
@@ -342,23 +323,55 @@ int main()
                 model = glm::translate(model, squarePositions[i]);
                 squareTextures[i] = textureWall;
             }
-            //wood plate
-            // else if(i == 3) // horizontal top plate
-            // {
-            //     model = glm::scale(model, glm::vec3(0.05f, 0.005f, 0.5f));
-            //     model = glm::translate(model, squarePositions[i]);
-            //     squareTextures[i] = textureContainer;
-            // }
-            // else if(i == 4) // horizontal bottom plate
-            // {
-            //     model = glm::scale(model, glm::vec3(0.5f, 0.005f, 0.2f));
-            //     model = glm::translate(model, squarePositions[i]);
-            //     squareTextures[i] = textureWall;
-            // }
+            // table
+            else if(i == 3) //table top
+            {
+                model = glm::scale(model, glm::vec3(0.25f, 0.02f, 0.55f));
+                model = glm::translate(model, squarePositions[i]);
+                squareTextures[i] = textureTable1;
+            }
+            else if(i == 4) //table right big chest
+            {
+                model = glm::scale(model, glm::vec3(0.23f, 0.23f, 0.21f));
+                model = glm::translate(model, squarePositions[i]);
+                squareTextures[i] = textureTable2;
+            }
+            else if(i == 5) //left leg 1
+            {
+                model = glm::scale(model, glm::vec3(0.03f, 0.25f, 0.03f));
+                model = glm::translate(model, squarePositions[i]);
+                squareTextures[i] = textureTable2;
+            }
+            else if(i == 6) //left leg 2
+            {
+                model = glm::scale(model, glm::vec3(0.03f, 0.25f, 0.03f));
+                model = glm::translate(model, squarePositions[i]);
+                squareTextures[i] = textureTable2;
+            }
+            else if(i == 7) //left chest
+            {
+                model = glm::scale(model, glm::vec3(0.23f, 0.05f, 0.29f));
+                model = glm::translate(model, squarePositions[i]);
+                squareTextures[i] = textureTable3;
+            }
+
+            /* wood plate
+            else if(i == 3) // horizontal top plate
+            {
+                model = glm::scale(model, glm::vec3(0.05f, 0.005f, 0.5f));
+                model = glm::translate(model, squarePositions[i]);
+                squareTextures[i] = textureContainer;
+            }
+            else if(i == 4) // horizontal bottom plate
+            {
+                model = glm::scale(model, glm::vec3(0.5f, 0.005f, 0.2f));
+                model = glm::translate(model, squarePositions[i]);
+                squareTextures[i] = textureWall;
+            } */
+
 
             
             // model = glm::translate(model, squarePositions[i]);
-            // model = glm::translate(model, skyboxPosition[i]);
             // model = glm::rotate(model, glm::radians(2.0f * i) ,glm::vec3(1.0f, 0.3f, 0.5f));
 
             glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
