@@ -220,6 +220,8 @@ int main()
 
     unsigned int textureContainer = loadTexture("Textures/container.jpg");
     unsigned int textureCloth = loadTexture("Textures/cloth.jpg");
+    unsigned int textureWall = loadTexture("Textures/wall.jpg");
+    unsigned int textureFloor = loadTexture("Textures/floor.jpg");
 
     //Loop until window closed
     while (!mainWindow.getShouldClose())
@@ -316,15 +318,15 @@ int main()
             if(i == 0) {
                 model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.01f));
                 model = glm::translate(model, squarePositions[i]);
-                squareTextures[i] = textureCloth;
+                squareTextures[i] = textureWall;
             }else if(i == 1) {
                 model = glm::scale(model, glm::vec3(0.5f, 0.01f, 0.5f));
                 model = glm::translate(model, squarePositions[i]);
-                squareTextures[i] = textureCloth;
+                squareTextures[i] = textureFloor;
             }else if(i == 2) {
                 model = glm::scale(model, glm::vec3(0.01f, 0.5f, 0.5f));
                 model = glm::translate(model, squarePositions[i]);
-                squareTextures[i] = textureCloth;
+                squareTextures[i] = textureWall;
             }
 
             // model = glm::translate(model, squarePositions[i]);
