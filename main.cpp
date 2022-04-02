@@ -127,7 +127,7 @@ void CreateSquare()
 
     Mesh *obj2 = new Mesh();
     obj2 -> CreateMesh(SQvertices, SQindices, 5*24, 3*12);
-    for(int i = 0; i < 2; i++) {
+    for(int i = 0; i < 4; i++) {
         meshList.push_back(obj2);
     }
 }
@@ -195,7 +195,6 @@ int main()
     mainWindow = Window(WIDTH, HEIGHT, 3, 3);
     mainWindow.initialise();
 
-    CreateTriangle();
     CreateSquare();
 
     CreateShaders();
@@ -247,7 +246,8 @@ int main()
             cameraPos += cameraRight * 0.01f;
 
         //Clear window
-        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+        // glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+        glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         //draw here
