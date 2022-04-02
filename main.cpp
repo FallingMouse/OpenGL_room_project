@@ -127,6 +127,7 @@ void CreateSquare()
         -1.0f, -1.0f, -1.0f,    1.0f, 0.0f,
         -1.0f, 1.0f, -1.0f,     1.0f, 1.0f,
     };
+
     unsigned int SQindices[] = 
     {
         0, 1, 2,
@@ -153,6 +154,75 @@ void CreateSquare()
     obj2 -> CreateMesh(SQvertices, SQindices, 5*24, 3*12);
     for(int i = 0; i < 2; i++) {
         meshList.push_back(obj2);
+    }
+}
+
+void CreateSimpleSkybox()
+{
+    GLfloat SkyBoxVertices[] =
+    {
+        // up
+        1.0f, 1.0f, 1.0f,       0.0f, 1.0f,
+        1.0f, 1.0f, -1.0f,      0.0f, 1.0f,
+        -1.0f, 1.0f, -1.0f,     1.0f, 0.0f,
+        -1.0f, 1.0f, 1.0f,      1.0f, 1.0f,
+
+        // down
+        1.0f, -1.0f, 1.0f,      0.0f, 1.0f,
+        1.0f, -1.0f, -1.0f,     0.0f, 1.0f,
+        -1.0f, -1.0f, -1.0f,    1.0f, 0.0f,
+        -1.0f, -1.0f, 1.0f,     1.0f, 1.0f,
+
+        // left
+        -1.0f, 1.0f, 1.0f,      0.0f, 1.0f,
+        -1.0f, 1.0f, -1.0f,     0.0f, 1.0f,
+        -1.0f, -1.0f, -1.0f,    1.0f, 0.0f,
+        -1.0f, -1.0f, 1.0f,     1.0f, 1.0f,
+
+        // right
+        1.0f, 1.0f, 1.0f,       0.0f, 1.0f,
+        1.0f, 1.0f, -1.0f,      0.0f, 1.0f,
+        1.0f, -1.0f, -1.0f,     1.0f, 0.0f,
+        1.0f, -1.0f, 1.0f,      1.0f, 1.0f,
+
+        // front
+        1.0f, 1.0f, 1.0f,       0.0f, 1.0f,
+        1.0f, -1.0f, 1.0f,      0.0f, 1.0f, 
+        -1.0f, -1.0f, 1.0f,     1.0f, 0.0f,
+        -1.0f, 1.0f, 1.0f,      1.0f, 1.0f,
+
+        // back
+        1.0f, 1.0f, -1.0f,      0.0f, 1.0f,
+        1.0f, -1.0f, -1.0f,     0.0f, 1.0f,
+        -1.0f, -1.0f, -1.0f,    1.0f, 0.0f,
+        -1.0f, 1.0f, -1.0f,     1.0f, 1.0f,
+    };
+    unsigned int SkyBoxIndices[] = 
+    {
+        0, 1, 2,
+        2, 3, 0,
+
+        4, 5, 6,
+        6, 7, 4,
+
+        8, 9, 10,
+        10, 11, 8,
+
+        12, 13, 14,
+        14, 15, 12,
+
+        16, 17, 18,
+        18, 19, 16,
+
+        20, 21, 22,
+        22, 23, 20, 
+
+    };
+
+    Mesh *obj4 = new Mesh();
+    obj4 -> CreateMesh(SkyBoxVertices, SkyBoxIndices, 5*24, 3*12);
+    for(int i = 0; i < 1; i++) {
+        meshList.push_back(obj4);
     }
 }
 
@@ -192,6 +262,7 @@ int main()
     CreateSquare();
     CreatePyramid(); 
     CreateShaders();
+    CreateSimpleSkybox();
 
     GLuint uniformModel = 0, uniformProjection = 0, uniformView = 0;
 
@@ -296,6 +367,12 @@ int main()
             glm::vec3( 2.0f, 5.0f, -2.5f)
         };
 
+        //SimpleSkyBox Position
+        glm::vec3 skyboxPosition[] =
+        {
+            glm::vec3(0.0f, 0.0f, 3.0f)
+        };
+
         glm::mat4 view (1.0f);
 
         glm::mat4 cameraPosMat (1.0f);
@@ -314,7 +391,7 @@ int main()
         //Object
         glm::mat4 model(1.0f);
 
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 4; i++)
         {
             glm::mat4 model (1.0f);
 
