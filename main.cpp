@@ -19,7 +19,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-const GLint WIDTH = 1920, HEIGHT = 1080;
+const GLint WIDTH = 800, HEIGHT = 600;
 
 Window mainWindow;
 std::vector<Mesh*> meshList;
