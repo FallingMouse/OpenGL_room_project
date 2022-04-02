@@ -127,7 +127,7 @@ void CreateSquare()
 
     Mesh *obj2 = new Mesh();
     obj2 -> CreateMesh(SQvertices, SQindices, 5*24, 3*12);
-    for(int i = 0; i < 7; i++) {
+    for(int i = 0; i < 1 + 9; i++) {
         meshList.push_back(obj2);
     }
 }
@@ -222,6 +222,7 @@ int main()
     unsigned int textureCloth = loadTexture("Textures/cloth.jpg");
     unsigned int textureWall = loadTexture("Textures/wall.jpg");
     unsigned int textureFloor = loadTexture("Textures/floor.jpg");
+    unsigned int textureWoodPlate = loadTexture("Textures/woodPlate.jpg");
 
     //Loop until window closed
     while (!mainWindow.getShouldClose())
@@ -273,8 +274,15 @@ int main()
 
             // top, bottom plate wall 1
             glm::vec3(1.0f, 79.0f, 3.0f),   // 5    top
-            glm::vec3(1.0f, 2.0f, 3.0f)     // 6    bottom
+            glm::vec3(1.0f, 2.0f, 3.0f),    // 6    bottom
 
+            // middle plate wall 2
+            glm::vec3(3.0f, 21.0f, 1.0f),   // 7    middle-top
+            glm::vec3(3.0f, 9.0f, 1.0f),    // 8    middle-bottom
+
+            // middle plate wall 
+            glm::vec3(1.0f, 21.0f, 3.0f)    // 9    middle-top
+            
         };
         
         glm::mat4 view (1.0f);
@@ -295,7 +303,7 @@ int main()
         //Object
         glm::mat4 model(1.0f);
 
-        for (int i = 0; i < 7; i++)
+        for (int i = 0; i < 1 + 9; i++)
         {
             glm::mat4 model (1.0f);
 
@@ -323,13 +331,25 @@ int main()
             {
                 model = glm::scale(model, glm::vec3(0.01f, 0.025f, 1.0f));
                 model = glm::translate(model, squarePositions[i]);
-                squareTextures[i] = textureContainer;
+                squareTextures[i] = textureWoodPlate;
             }
-            else if(i <= 6)
-            { // (top/bottom) plate wall 1
+            else if(i <= 6) // (top/bottom) plate wall 1
+            { 
                 model = glm::scale(model, glm::vec3(1.0f, 0.025f, 0.01f));
                 model = glm::translate(model, squarePositions[i]);
-                squareTextures[i] = textureContainer;
+                squareTextures[i] = textureWoodPlate;
+            }
+            else if(i <= 8) // middle plate wall 2
+            {
+                model = glm::scale(model, glm::vec3(0.01f, 0.075f, 1.0f));
+                model = glm::translate(model, squarePositions[i]);
+                squareTextures[i] = textureWoodPlate;
+            }
+            else if(i == 9) // middle-top plate wall 1
+            {
+                model = glm::scale(model, glm::vec3(1.0f, 0.075f, 0.01f));
+                model = glm::translate(model, squarePositions[i]);
+                squareTextures[i] = textureWoodPlate;
             }
 
             
