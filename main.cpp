@@ -11,7 +11,7 @@
 #include <cmath>
 
 #include "Libs/Shader.h"
-#include "Libs/Window.h" 
+#include "Libs/Window.h"
 #include "Libs/Mesh.h"
 #include "Libs/stb_image.h"
 
