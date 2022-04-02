@@ -60,6 +60,33 @@ void CreateTriangle()
     } */
 }
 
+void CreatePyramid() 
+{
+    GLfloat PYvertices[] =
+    {
+        //pos                   //TexCoord
+        -0.5f, 0.0f, 0.5f,      0.0f, 0.0f,
+        -0.5, 0.0f, -0.0f,      5.0f, 0.0f,
+        0.5f, 0.0f, -0.5f,      0.0f, 0.0f,
+        0.5f, 0.0f, 0.5f,       5.0f, 0.0f,
+        0.0f, 0.8f, 0.0f,       2.5f, 5.0f
+    };
+
+    unsigned int PYindices[] = 
+    {
+        0, 1, 2,
+        0, 2, 3,
+        0, 1, 4,
+        1, 2, 4,
+        2, 3, 4,
+        3, 0, 4,
+    };
+
+    Mesh *obj3 = new Mesh();
+    obj3 -> CreateMesh(PYvertices, PYindices, 5*5, 3*6);
+    meshList.push_back(obj3);
+}
+
 void CreateSquare()
 {
     GLfloat SQvertices[] =
@@ -124,7 +151,9 @@ void CreateSquare()
 
     Mesh *obj2 = new Mesh();
     obj2 -> CreateMesh(SQvertices, SQindices, 5*24, 3*12);
-    meshList.push_back(obj2);
+    for(int i = 0; i < 2; i++) {
+        meshList.push_back(obj2);
+    }
 }
 
 void CreateShaders()
@@ -160,8 +189,8 @@ int main()
     mainWindow = Window(WIDTH, HEIGHT, 3, 3);
     mainWindow.initialise();
 
-    CreateTriangle();
     CreateSquare();
+    CreatePyramid(); 
     CreateShaders();
 
     GLuint uniformModel = 0, uniformProjection = 0, uniformView = 0;
@@ -193,6 +222,8 @@ int main()
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+    glEnable(GL_DEPTH_TEST);
 
     int width, height, nrChannels;
     unsigned char *data = stbi_load("Textures/container.jpg", &width, &height, &nrChannels, 0);
@@ -256,8 +287,13 @@ int main()
 
         glm::vec3 squarePositions[] =
         {
-            glm::vec3(0.0f, 0.0f, -2.5f),
-            glm::vec3( 2.0f, 5.0f, -15.0f)
+            // glm::vec3(0.0f, 0.0f, -2.5f),
+            glm::vec3(0.0f, 0.0f, 0.0f),
+            glm::vec3(0.0f, 0.0f, 1.0f)
+        };
+        glm::vec3 pyramid2Positions[] =
+        {
+            glm::vec3( 2.0f, 5.0f, -2.5f)
         };
 
         glm::mat4 view (1.0f);
@@ -278,13 +314,13 @@ int main()
         //Object
         glm::mat4 model(1.0f);
 
-        for (int i = 0; i < 1; i++)
+        for (int i = 0; i < 3; i++)
         {
             glm::mat4 model (1.0f);
 
             model = glm::translate(model, squarePositions[i]);
-            model = glm::rotate(model, glm::radians(2.0f * i) ,glm::vec3(1.0f, 0.3f, 0.5f));
-            model = glm::scale(model, glm::vec3(0.8f, 0.8f, 1.0f));
+            // model = glm::rotate(model, glm::radians(2.0f * i) ,glm::vec3(1.0f, 0.3f, 0.5f));
+            model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
 
             glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
             glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(view));
