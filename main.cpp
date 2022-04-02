@@ -27,6 +27,8 @@ std::vector<Shader> shaderList;
 
 float yaw = 0.0f, pitch = 0.0f;
 
+unsigned int squareTextures[4];
+
 //Vertex Shader
 static const char* vShader = "Shaders/shader.vert";
 
@@ -193,10 +195,8 @@ int main()
     mainWindow = Window(WIDTH, HEIGHT, 3, 3);
     mainWindow.initialise();
 
-
     CreateTriangle();
     CreateSquare();
-
 
     CreateShaders();
 
@@ -219,32 +219,8 @@ int main()
     glfwSetCursorPosCallback(mainWindow.getWindow(), mouse_callback);
     glfwSetInputMode(mainWindow.getWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
-    // //texture
-    // unsigned int texture;
-
-    // glGenTextures(1, &texture);
-    // glBindTexture(GL_TEXTURE_2D, texture);
-    
-    // glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    // glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    // glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-    // glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-    // glEnable(GL_DEPTH_TEST);
-
-    // int width, height, nrChannels;
-    // unsigned char *data = stbi_load("Textures/container.jpg", &width, &height, &nrChannels, 0);
-    // if (data) {
-    //     //bind image with texture
-    //     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
-    //     glGenerateMipmap(GL_TEXTURE_2D);
-    // }
-    // else {
-    //     std::cout<<"Failed to load texture"<<std::endl;
-    // }
-    // stbi_image_free(data);
-
     unsigned int textureContainer = loadTexture("Textures/container.jpg");
+    unsigned int textureCloth = loadTexture("Textures/cloth.jpg");
 
     //Loop until window closed
     while (!mainWindow.getShouldClose())
@@ -327,11 +303,13 @@ int main()
             if(i < 2 ) {
                 model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
                 model = glm::translate(model, pyramidPositions[i]);
+                squareTextures[i] = textureCloth;
 
             //Square
-            }else if(i < 4) {
+            } else if(i < 4) {
                 model = glm::scale(model, glm::vec3(0.8f, 0.8f, 0.8f));
                 model = glm::translate(model, squarePositions[i]);
+                squareTextures[i] = textureContainer;
             }
 
             // model = glm::translate(model, squarePositions[i]);
@@ -343,7 +321,7 @@ int main()
             glUniformMatrix4fv(uniformProjection, 1, GL_FALSE, glm::value_ptr(projection));
 
             glActiveTexture(GL_TEXTURE0);
-            glBindTexture(GL_TEXTURE_2D, textureContainer);
+            glBindTexture(GL_TEXTURE_2D, squareTextures[i]);
             meshList[i]->RenderMesh();
         }
 
