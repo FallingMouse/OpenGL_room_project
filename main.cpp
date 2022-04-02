@@ -35,6 +35,9 @@ static const char* vShader = "Shaders/shader.vert";
 //Fragment Shader
 static const char* fShader = "Shaders/shader.frag";
 
+//Numbers of Object to draw
+static int numOfDraw = 13;
+
 void CreateTriangle()
 {
     GLfloat vertices[] =
@@ -127,7 +130,7 @@ void CreateSquare()
 
     Mesh *obj2 = new Mesh();
     obj2 -> CreateMesh(SQvertices, SQindices, 5*24, 3*12);
-    for(int i = 0; i < 1 + 9; i++) {
+    for(int i = 0; i < 1 + numOfDraw; i++) {
         meshList.push_back(obj2);
     }
 }
@@ -280,8 +283,18 @@ int main()
             glm::vec3(3.0f, 21.0f, 1.0f),   // 7    middle-top
             glm::vec3(3.0f, 9.0f, 1.0f),    // 8    middle-bottom
 
-            // middle plate wall 
-            glm::vec3(1.0f, 21.0f, 3.0f)    // 9    middle-top
+            // middle plate wall 1
+            glm::vec3(1.0f, 21.0f, 3.0f),   // 9    middle-top
+
+            //vertical plate wall 2
+            glm::vec3(3.0f, 1.0f, 23.0f),   // 10   vertical-left
+            glm::vec3(3.0f, 1.0f, 9.0f),    // 11   vertical-right
+
+            //vertical plate wall 1
+            glm::vec3(9.0f, 1.0f, 3.0f),    // 12   vertical-left
+
+            //corner plate
+            glm::vec3(3.0f, 1.0f, 3.0f)     // 13   corner
             
         };
         
@@ -303,7 +316,7 @@ int main()
         //Object
         glm::mat4 model(1.0f);
 
-        for (int i = 0; i < 1 + 9; i++)
+        for (int i = 0; i < 1 + numOfDraw; i++)
         {
             glm::mat4 model (1.0f);
 
@@ -348,6 +361,24 @@ int main()
             else if(i == 9) // middle-top plate wall 1
             {
                 model = glm::scale(model, glm::vec3(1.0f, 0.075f, 0.01f));
+                model = glm::translate(model, squarePositions[i]);
+                squareTextures[i] = textureWoodPlate;
+            }
+            else if(i <= 11) // vertical plate wall 2
+            {
+                model = glm::scale(model, glm::vec3(0.015f, 1.0f, 0.075f));
+                model = glm::translate(model, squarePositions[i]);
+                squareTextures[i] = textureWoodPlate;
+            }
+            else if(i == 12) // vertical plate wall 1
+            {
+                model = glm::scale(model, glm::vec3(0.075f, 1.0f, 0.015f));
+                model = glm::translate(model, squarePositions[i]);
+                squareTextures[i] = textureWoodPlate;
+            }
+            else if(i == 13) // corner plate
+            {
+                model = glm::scale(model, glm::vec3(0.015f, 1.0f, 0.025f));
                 model = glm::translate(model, squarePositions[i]);
                 squareTextures[i] = textureWoodPlate;
             }
