@@ -127,7 +127,7 @@ void CreateSquare()
 
     Mesh *obj2 = new Mesh();
     obj2 -> CreateMesh(SQvertices, SQindices, 5*24, 3*12);
-    for(int i = 0; i < 4; i++) {
+    for(int i = 0; i < 3; i++) {
         meshList.push_back(obj2);
     }
 }
@@ -202,8 +202,11 @@ int main()
     GLuint uniformModel = 0, uniformProjection = 0, uniformView = 0;
 
     glm::mat4 projection = glm::perspective(45.0f, (GLfloat)mainWindow.getBufferWidth() / (GLfloat)mainWindow.getBufferHeight(), 0.1f, 100.0f);
+    // glm::mat4 projection = glm::ortho(-4.0f, 4.0f, -3.0f, 3.0f, 0.1f, 100.0f);
     
+    // glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 0.0f);
     glm::vec3 cameraPos = glm::vec3(1.0f, 0.5f, 2.0f);
+    // glm::vec3 cameraTarget = glm::vec3(0.0f, 0.0f, -1.0f);
     glm::vec3 cameraTarget = glm::vec3(0.0f, -0.3f, -1.0f);
     glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f);
 
@@ -219,7 +222,6 @@ int main()
     unsigned int textureCloth = loadTexture("Textures/cloth.jpg");
     unsigned int textureWall = loadTexture("Textures/wall.jpg");
     unsigned int textureFloor = loadTexture("Textures/floor.jpg");
-    unsigned int textureBackground = loadTexture("Textures/background.jpg");
 
     //Loop until window closed
     while (!mainWindow.getShouldClose())
@@ -256,12 +258,33 @@ int main()
         uniformView = shaderList[0].GetUniformLocation("view");
         uniformProjection = shaderList[0].GetUniformLocation("projection");
 
+        glm::vec3 pyramidPositions[] =
+        {
+            // glm::vec3(0.0f, 0.0f, 2.5f),
+            // glm::vec3( 2.0f, 5.0f, -15.0f),
+            // glm::vec3(-1.5f, -2.2f, -2.5f),
+            // glm::vec3(-3.8f, -2.0f, -12.3f),
+            // glm::vec3( 2.4f, -0.4f, -3.5f),
+            // glm::vec3(-1.7f, 3.0f, -7.5f),
+            // glm::vec3( 1.3f, -2.0f, -2.5f),
+            // glm::vec3( 1.5f, 2.0f, -2.5f),
+            // glm::vec3( 1.5f, 0.2f, -1.5f),
+            // glm::vec3(-1.3f, 1.0f, -1.5f)
+        }; 
+
         glm::vec3 squarePositions[] =
         {
-            glm::vec3(1.0f, 1.0f, 0.0f),
-            glm::vec3(1.0f, 0.0f, 1.0f),
-            glm::vec3(0.0f, 1.0f, 1.0f),
-            glm::vec3(0.2f, -60.0f, 0.2f)
+            //         Positions            // i    description
+            // wall
+            glm::vec3(1.0f, 1.0f, 0.0f),    // 0    wall 1
+            glm::vec3(1.0f, 0.0f, 1.0f),    // 1    floor
+            glm::vec3(0.0f, 1.0f, 1.0f),    // 2    wall 2
+
+            // wood plate
+            // glm::vec3(1.0f, -1.0f, 1.0f),   // 3    horizontal top plate
+            // glm::vec3(1.0f, 0.01f, 0.2f)    // 4    horizontal bottom plate
+
+
         };
         
         glm::mat4 view (1.0f);
@@ -282,33 +305,60 @@ int main()
         //Object
         glm::mat4 model(1.0f);
 
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 3; i++)
         {
             glm::mat4 model (1.0f);
 
-            //Wall
-            if(i == 0) {
-                model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.01f));
+            // //Pyramid 
+            // if(i < 2 ) {
+            //     model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
+            //     model = glm::translate(model, pyramidPositions[i]);
+            //     squareTextures[i] = textureCloth;
+
+            // //Square
+            // } else if(i < 4) {
+            //     model = glm::scale(model, glm::vec3(0.8f, 0.8f, 0.8f));
+            //     model = glm::translate(model, squarePositions[i]);
+            //     squareTextures[i] = textureContainer;
+            // }
+
+
+            // wall
+            if(i == 0)  // wall 1
+            {
+                model = glm::scale(model, glm::vec3(1.0f, 1.0f, 0.02f));
                 model = glm::translate(model, squarePositions[i]);
                 squareTextures[i] = textureWall;
-            } else if(i == 1) {
-                model = glm::scale(model, glm::vec3(0.5f, 0.01f, 0.5f));
+            }
+            else if(i == 1) // floor
+            {
+                model = glm::scale(model, glm::vec3(1.0f, 0.02f, 1.0f));
                 model = glm::translate(model, squarePositions[i]);
                 squareTextures[i] = textureFloor;
-            } else if(i == 2) {
-                model = glm::scale(model, glm::vec3(0.01f, 0.5f, 0.5f));
+            }
+            else if(i == 2) // wall 2
+            {
+                model = glm::scale(model, glm::vec3(0.02f, 1.0f, 1.0f));
                 model = glm::translate(model, squarePositions[i]);
                 squareTextures[i] = textureWall;
             }
-            //Background
-            else if(i == 3) {
-                model = glm::scale(model, glm::vec3(5.0f, 0.0f, 5.0f));
-                model = glm::translate(model, squarePositions[i]);
-                // model = glm::rotate(model, glm::radians(45.0f), glm::vec3(0.0f, 0.0f, 0.5f));
-                squareTextures[i] = textureBackground;
-            }
+            //wood plate
+            // else if(i == 3) // horizontal top plate
+            // {
+            //     model = glm::scale(model, glm::vec3(0.05f, 0.005f, 0.5f));
+            //     model = glm::translate(model, squarePositions[i]);
+            //     squareTextures[i] = textureContainer;
+            // }
+            // else if(i == 4) // horizontal bottom plate
+            // {
+            //     model = glm::scale(model, glm::vec3(0.5f, 0.005f, 0.2f));
+            //     model = glm::translate(model, squarePositions[i]);
+            //     squareTextures[i] = textureWall;
+            // }
 
+            
             // model = glm::translate(model, squarePositions[i]);
+            // model = glm::translate(model, skyboxPosition[i]);
             // model = glm::rotate(model, glm::radians(2.0f * i) ,glm::vec3(1.0f, 0.3f, 0.5f));
 
             glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
