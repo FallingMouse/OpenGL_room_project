@@ -127,7 +127,7 @@ void CreateSquare()
 
     Mesh *obj2 = new Mesh();
     obj2 -> CreateMesh(SQvertices, SQindices, 5*24, 3*12);
-    for(int i = 0; i < 3; i++) {
+    for(int i = 0; i < 7; i++) {
         meshList.push_back(obj2);
     }
 }
@@ -258,19 +258,6 @@ int main()
         uniformView = shaderList[0].GetUniformLocation("view");
         uniformProjection = shaderList[0].GetUniformLocation("projection");
 
-        glm::vec3 pyramidPositions[] =
-        {
-            // glm::vec3(0.0f, 0.0f, 2.5f),
-            // glm::vec3( 2.0f, 5.0f, -15.0f),
-            // glm::vec3(-1.5f, -2.2f, -2.5f),
-            // glm::vec3(-3.8f, -2.0f, -12.3f),
-            // glm::vec3( 2.4f, -0.4f, -3.5f),
-            // glm::vec3(-1.7f, 3.0f, -7.5f),
-            // glm::vec3( 1.3f, -2.0f, -2.5f),
-            // glm::vec3( 1.5f, 2.0f, -2.5f),
-            // glm::vec3( 1.5f, 0.2f, -1.5f),
-            // glm::vec3(-1.3f, 1.0f, -1.5f)
-        }; 
 
         glm::vec3 squarePositions[] =
         {
@@ -280,10 +267,13 @@ int main()
             glm::vec3(1.0f, 0.0f, 1.0f),    // 1    floor
             glm::vec3(0.0f, 1.0f, 1.0f),    // 2    wall 2
 
-            // wood plate
-            // glm::vec3(1.0f, -1.0f, 1.0f),   // 3    horizontal top plate
-            // glm::vec3(1.0f, 0.01f, 0.2f)    // 4    horizontal bottom plate
+            // top, bottom plate wall 2
+            glm::vec3(3.0f, 79.0f, 1.0f),   // 3    top
+            glm::vec3(3.0f, 2.0f, 1.0f),    // 4    bottom
 
+            // top, bottom plate wall 1
+            glm::vec3(1.0f, 79.0f, 3.0f),   // 5    top
+            glm::vec3(1.0f, 2.0f, 3.0f)     // 6    bottom
 
         };
         
@@ -305,23 +295,9 @@ int main()
         //Object
         glm::mat4 model(1.0f);
 
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 7; i++)
         {
             glm::mat4 model (1.0f);
-
-            // //Pyramid 
-            // if(i < 2 ) {
-            //     model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
-            //     model = glm::translate(model, pyramidPositions[i]);
-            //     squareTextures[i] = textureCloth;
-
-            // //Square
-            // } else if(i < 4) {
-            //     model = glm::scale(model, glm::vec3(0.8f, 0.8f, 0.8f));
-            //     model = glm::translate(model, squarePositions[i]);
-            //     squareTextures[i] = textureContainer;
-            // }
-
 
             // wall
             if(i == 0)  // wall 1
@@ -342,19 +318,19 @@ int main()
                 model = glm::translate(model, squarePositions[i]);
                 squareTextures[i] = textureWall;
             }
-            //wood plate
-            // else if(i == 3) // horizontal top plate
-            // {
-            //     model = glm::scale(model, glm::vec3(0.05f, 0.005f, 0.5f));
-            //     model = glm::translate(model, squarePositions[i]);
-            //     squareTextures[i] = textureContainer;
-            // }
-            // else if(i == 4) // horizontal bottom plate
-            // {
-            //     model = glm::scale(model, glm::vec3(0.5f, 0.005f, 0.2f));
-            //     model = glm::translate(model, squarePositions[i]);
-            //     squareTextures[i] = textureWall;
-            // }
+            // wood plate
+            else if(i <= 4) // (top/bottom) plate wall 2
+            {
+                model = glm::scale(model, glm::vec3(0.01f, 0.025f, 1.0f));
+                model = glm::translate(model, squarePositions[i]);
+                squareTextures[i] = textureContainer;
+            }
+            else if(i <= 6)
+            { // (top/bottom) plate wall 1
+                model = glm::scale(model, glm::vec3(1.0f, 0.025f, 0.01f));
+                model = glm::translate(model, squarePositions[i]);
+                squareTextures[i] = textureContainer;
+            }
 
             
             // model = glm::translate(model, squarePositions[i]);
