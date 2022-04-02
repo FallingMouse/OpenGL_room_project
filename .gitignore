@@ -3,3 +3,5 @@ Libs/
 main
 main.dSYM/
 main.exe
+main.exe
+*.exe
