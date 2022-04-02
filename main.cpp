@@ -57,9 +57,9 @@ void CreateTriangle()
     Mesh *obj1 = new Mesh();
     obj1->CreateMesh(vertices, indices, 20, 12);
     
-    for(int i = 0; i < 2; i++) {
-        meshList.push_back(obj1);
-    }
+    // for(int i = 0; i < 2; i++) {
+    //     meshList.push_back(obj1);
+    // }
 }
 
 void CreateSquare()
@@ -127,7 +127,7 @@ void CreateSquare()
 
     Mesh *obj2 = new Mesh();
     obj2 -> CreateMesh(SQvertices, SQindices, 5*24, 3*12);
-    for(int i = 0; i < 4; i++) {
+    for(int i = 0; i < 3; i++) {
         meshList.push_back(obj2);
     }
 }
@@ -258,8 +258,8 @@ int main()
 
         glm::vec3 pyramidPositions[] =
         {
-            glm::vec3(0.0f, 0.0f, 2.5f),
-            glm::vec3( 2.0f, 5.0f, -15.0f),
+            // glm::vec3(0.0f, 0.0f, 2.5f),
+            // glm::vec3( 2.0f, 5.0f, -15.0f),
             // glm::vec3(-1.5f, -2.2f, -2.5f),
             // glm::vec3(-3.8f, -2.0f, -12.3f),
             // glm::vec3( 2.4f, -0.4f, -3.5f),
@@ -273,8 +273,9 @@ int main()
         glm::vec3 squarePositions[] =
         {
             // glm::vec3(0.0f, 0.0f, -2.5f),
-            glm::vec3(0.0f, 0.0f, 0.0f),
-            glm::vec3(0.0f, 0.0f, 1.0f)
+            glm::vec3(1.0f, 1.0f, 0.0f),
+            glm::vec3(1.0f, 0.0f, 1.0f),
+            glm::vec3(0.0f, 1.0f, 1.0f)
         };
         
         glm::mat4 view (1.0f);
@@ -295,21 +296,35 @@ int main()
         //Object
         glm::mat4 model(1.0f);
 
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 3; i++)
         {
             glm::mat4 model (1.0f);
 
-            //Pyramid 
-            if(i < 2 ) {
-                model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
-                model = glm::translate(model, pyramidPositions[i]);
-                squareTextures[i] = textureCloth;
+            // //Pyramid 
+            // if(i < 2 ) {
+            //     model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
+            //     model = glm::translate(model, pyramidPositions[i]);
+            //     squareTextures[i] = textureCloth;
 
-            //Square
-            } else if(i < 4) {
-                model = glm::scale(model, glm::vec3(0.8f, 0.8f, 0.8f));
+            // //Square
+            // } else if(i < 4) {
+            //     model = glm::scale(model, glm::vec3(0.8f, 0.8f, 0.8f));
+            //     model = glm::translate(model, squarePositions[i]);
+            //     squareTextures[i] = textureContainer;
+            // }
+
+            if(i == 0) {
+                model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.01f));
                 model = glm::translate(model, squarePositions[i]);
-                squareTextures[i] = textureContainer;
+                squareTextures[i] = textureCloth;
+            }else if(i == 1) {
+                model = glm::scale(model, glm::vec3(0.5f, 0.01f, 0.5f));
+                model = glm::translate(model, squarePositions[i]);
+                squareTextures[i] = textureCloth;
+            }else if(i == 2) {
+                model = glm::scale(model, glm::vec3(0.01f, 0.5f, 0.5f));
+                model = glm::translate(model, squarePositions[i]);
+                squareTextures[i] = textureCloth;
             }
 
             // model = glm::translate(model, squarePositions[i]);
