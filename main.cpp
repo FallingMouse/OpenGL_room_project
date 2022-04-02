@@ -225,7 +225,9 @@ int main()
     unsigned int textureCloth = loadTexture("Textures/cloth.jpg");
     unsigned int textureWall = loadTexture("Textures/wall.jpg");
     unsigned int textureFloor = loadTexture("Textures/floor.jpg");
-    unsigned int textureWoodPlate = loadTexture("Textures/woodPlate.jpg");
+    unsigned int textureWoodPlate1 = loadTexture("Textures/woodPlate1.jpg");
+    unsigned int textureWoodPlate2 = loadTexture("Textures/woodPlate2.jpg");
+
 
     //Loop until window closed
     while (!mainWindow.getShouldClose())
@@ -294,7 +296,7 @@ int main()
             glm::vec3(9.0f, 1.0f, 3.0f),    // 12   vertical-left
 
             //corner plate
-            glm::vec3(3.0f, 1.0f, 3.0f)     // 13   corner
+            glm::vec3(2.0f, 1.0f, 2.0f)     // 13   corner
             
         };
         
@@ -344,43 +346,43 @@ int main()
             {
                 model = glm::scale(model, glm::vec3(0.01f, 0.025f, 1.0f));
                 model = glm::translate(model, squarePositions[i]);
-                squareTextures[i] = textureWoodPlate;
+                squareTextures[i] = textureWoodPlate2;
             }
             else if(i <= 6) // (top/bottom) plate wall 1
             { 
                 model = glm::scale(model, glm::vec3(1.0f, 0.025f, 0.01f));
                 model = glm::translate(model, squarePositions[i]);
-                squareTextures[i] = textureWoodPlate;
+                squareTextures[i] = textureWoodPlate2;
             }
             else if(i <= 8) // middle plate wall 2
             {
                 model = glm::scale(model, glm::vec3(0.01f, 0.075f, 1.0f));
                 model = glm::translate(model, squarePositions[i]);
-                squareTextures[i] = textureWoodPlate;
+                squareTextures[i] = textureWoodPlate2;
             }
             else if(i == 9) // middle-top plate wall 1
             {
                 model = glm::scale(model, glm::vec3(1.0f, 0.075f, 0.01f));
                 model = glm::translate(model, squarePositions[i]);
-                squareTextures[i] = textureWoodPlate;
+                squareTextures[i] = textureWoodPlate2;
             }
             else if(i <= 11) // vertical plate wall 2
             {
                 model = glm::scale(model, glm::vec3(0.015f, 1.0f, 0.075f));
                 model = glm::translate(model, squarePositions[i]);
-                squareTextures[i] = textureWoodPlate;
+                squareTextures[i] = textureWoodPlate1;
             }
             else if(i == 12) // vertical plate wall 1
             {
                 model = glm::scale(model, glm::vec3(0.075f, 1.0f, 0.015f));
                 model = glm::translate(model, squarePositions[i]);
-                squareTextures[i] = textureWoodPlate;
+                squareTextures[i] = textureWoodPlate1;
             }
             else if(i == 13) // corner plate
             {
-                model = glm::scale(model, glm::vec3(0.015f, 1.0f, 0.025f));
+                model = glm::scale(model, glm::vec3(0.025f, 1.0f, 0.025f));
                 model = glm::translate(model, squarePositions[i]);
-                squareTextures[i] = textureWoodPlate;
+                squareTextures[i] = textureWoodPlate1;
             }
 
             
