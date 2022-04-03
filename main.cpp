@@ -354,7 +354,10 @@ int main()
             glm::vec3(37.0f, 16.0f, 3.0f),      // 32   right knob
 
             // pillow
-            glm::vec3(7.5f, 0.94f, 3.5f),     // 13     pillow
+            glm::vec3(7.5f, 0.94f, 3.5f),       // 33   pillow
+
+            // calendar
+            glm::vec3(1.5f, 4.5f, 3.0f)         // 34   calendar
             
         };
         
