@@ -349,7 +349,6 @@ int main()
 
             // calendar
             glm::vec3(1.5f, 4.5f, 3.0f)         // 34   calendar
-            
         };
         
         glm::mat4 view (1.0f);
@@ -523,6 +522,10 @@ int main()
                 model = glm::translate(model, squarePositions[i]);
                 squareTextures[i] = texturePillow;
             }
+<<<<<<< HEAD
+=======
+
+>>>>>>> parent of cd469cc (Update main.cpp)
             
             // model = glm::translate(model, squarePositions[i]);
             // model = glm::rotate(model, glm::radians(2.0f * i) ,glm::vec3(1.0f, 0.3f, 0.5f));
