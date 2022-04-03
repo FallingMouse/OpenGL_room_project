@@ -27,8 +27,7 @@ std::vector<Shader> shaderList;
 
 float yaw = 0.0f, pitch = 0.0f;
 
-const GLbyte squareNum = 22;
-unsigned int squareTextures[squareNum];
+unsigned int squareTextures[4];
 
 //Vertex Shader
 static const char* vShader = "Shaders/shader.vert";
@@ -36,6 +35,8 @@ static const char* vShader = "Shaders/shader.vert";
 //Fragment Shader
 static const char* fShader = "Shaders/shader.frag";
 
+//Numbers of Object to draw
+static int numOfDraw = 13;
 
 void CreateTriangle()
 {
@@ -129,7 +130,7 @@ void CreateSquare()
 
     Mesh *obj2 = new Mesh();
     obj2 -> CreateMesh(SQvertices, SQindices, 5*24, 3*12);
-    for(int i = 0; i < squareNum; i++) {
+    for(int i = 0; i < 1 + numOfDraw; i++) {
         meshList.push_back(obj2);
     }
 }
@@ -227,11 +228,6 @@ int main()
     unsigned int textureWoodPlate1 = loadTexture("Textures/woodPlate1.jpg");
     unsigned int textureWoodPlate2 = loadTexture("Textures/woodPlate2.jpg");
 
-    unsigned int textureBackground = loadTexture("Textures/background.jpg");
-    unsigned int textureTable1 = loadTexture("Textures/table1.jpg");
-    unsigned int textureTable2 = loadTexture("Textures/table2.jpg");
-    unsigned int textureTable3 = loadTexture("Textures/table3.jpg");
-    unsigned int textureTable4 = loadTexture("Textures/table4.jpg");
 
     //Loop until window closed
     while (!mainWindow.getShouldClose())
@@ -268,6 +264,7 @@ int main()
         uniformView = shaderList[0].GetUniformLocation("view");
         uniformProjection = shaderList[0].GetUniformLocation("projection");
 
+
         glm::vec3 squarePositions[] =
         {
             //         Positions            // i    description
@@ -301,15 +298,6 @@ int main()
             //corner plate
             glm::vec3(2.0f, 1.0f, 2.0f),     // 13   corner
             
-            // table
-            glm::vec3(1.0f, 24.0f, 1.67f),    // 14   top
-            glm::vec3(1.0f, 0.94f, 2.9f),     // 15   right big chest
-            glm::vec3(1.0f, 0.94f, 46.0f),    // 16   left leg 1
-            glm::vec3(15.0f, 0.94f, 46.0f),   // 17   left leg 2
-            glm::vec3(1.0f, 8.5f, 3.8f),      // 18   left chest
-            glm::vec3(47.0f, 35.5f, 2.9f),    // 19   right line 1
-            glm::vec3(47.0f, 25.5f, 2.9f),    // 20   right line 2
-            glm::vec3(47.0f, 14.5f, 2.9f),    // 21   right line 3
         };
         
         glm::mat4 view (1.0f);
@@ -330,7 +318,7 @@ int main()
         //Object
         glm::mat4 model(1.0f);
 
-        for (int i = 0; i < squareNum; i++)
+        for (int i = 0; i < 1 + numOfDraw; i++)
         {
             glm::mat4 model (1.0f);
 
@@ -396,58 +384,10 @@ int main()
                 model = glm::translate(model, squarePositions[i]);
                 squareTextures[i] = textureWoodPlate1;
             }
-            // table
-            else if(i == 14) //table top
-            {
-                model = glm::scale(model, glm::vec3(0.25f, 0.02f, 0.55f));
-                model = glm::translate(model, squarePositions[i]);
-                squareTextures[i] = textureTable1;
-            }
-            else if(i == 15) //table right big chest
-            {
-                model = glm::scale(model, glm::vec3(0.23f, 0.23f, 0.21f));
-                model = glm::translate(model, squarePositions[i]);
-                squareTextures[i] = textureTable2;
-            }
-            else if(i == 16) //left leg 1
-            {
-                model = glm::scale(model, glm::vec3(0.03f, 0.25f, 0.03f));
-                model = glm::translate(model, squarePositions[i]);
-                squareTextures[i] = textureTable2;
-            }
-            else if(i == 17) //left leg 2
-            {
-                model = glm::scale(model, glm::vec3(0.03f, 0.25f, 0.03f));
-                model = glm::translate(model, squarePositions[i]);
-                squareTextures[i] = textureTable2;
-            }
-            else if(i == 18) //left chest
-            {
-                model = glm::scale(model, glm::vec3(0.23f, 0.05f, 0.29f));
-                model = glm::translate(model, squarePositions[i]);
-                squareTextures[i] = textureTable3;
-            }
-            else if(i == 19) //right line 1
-            {
-                model = glm::scale(model, glm::vec3(0.01f, 0.01f, 0.21f));
-                model = glm::translate(model, squarePositions[i]);
-                squareTextures[i] = textureTable4;
-            }
-            else if(i == 20) //right line 2
-            {
-                model = glm::scale(model, glm::vec3(0.01f, 0.01f, 0.21f));
-                model = glm::translate(model, squarePositions[i]);
-                squareTextures[i] = textureTable4;
-            }
-            else if(i == 21) //right line 3
-            {
-                model = glm::scale(model, glm::vec3(0.01f, 0.01f, 0.21f));
-                model = glm::translate(model, squarePositions[i]);
-                squareTextures[i] = textureTable4;
-            }
 
             
             // model = glm::translate(model, squarePositions[i]);
+            // model = glm::translate(model, skyboxPosition[i]);
             // model = glm::rotate(model, glm::radians(2.0f * i) ,glm::vec3(1.0f, 0.3f, 0.5f));
 
             glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
