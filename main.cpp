@@ -27,7 +27,8 @@ std::vector<Shader> shaderList;
 
 float yaw = 0.0f, pitch = 0.0f;
 
-unsigned int squareTextures[8];
+const GLbyte squareNum = 11;
+unsigned int squareTextures[squareNum];
 
 //Vertex Shader
 static const char* vShader = "Shaders/shader.vert";
@@ -127,7 +128,7 @@ void CreateSquare()
 
     Mesh *obj2 = new Mesh();
     obj2 -> CreateMesh(SQvertices, SQindices, 5*24, 3*12);
-    for(int i = 0; i < 8; i++) {
+    for(int i = 0; i < squareNum; i++) {
         meshList.push_back(obj2);
     }
 }
@@ -226,6 +227,7 @@ int main()
     unsigned int textureTable1 = loadTexture("Textures/table1.jpg");
     unsigned int textureTable2 = loadTexture("Textures/table2.jpg");
     unsigned int textureTable3 = loadTexture("Textures/table3.jpg");
+    unsigned int textureTable4 = loadTexture("Textures/table4.jpg");
 
     //Loop until window closed
     while (!mainWindow.getShouldClose())
@@ -279,7 +281,10 @@ int main()
             glm::vec3(1.0f, 0.94f, 2.9f),     // 6   right big chest
             glm::vec3(1.0f, 0.94f, 46.0f),    // 7   left leg 1
             glm::vec3(15.0f, 0.94f, 46.0f),    // 8   left leg 2
-            glm::vec3(1.0f, 8.5f, 3.8f),    // 8   left chest
+            glm::vec3(1.0f, 8.5f, 3.8f),    // 9   left chest
+            glm::vec3(47.0f, 35.5f, 2.9f),    // 10   right line 1
+            glm::vec3(47.0f, 25.5f, 2.9f),    // 10   right line 2
+            glm::vec3(47.0f, 14.5f, 2.9f),    // 10   right line 3
         };
         
         glm::mat4 view (1.0f);
@@ -300,7 +305,7 @@ int main()
         //Object
         glm::mat4 model(1.0f);
 
-        for (int i = 0; i < 8; i++)
+        for (int i = 0; i < squareNum; i++)
         {
             glm::mat4 model (1.0f);
 
@@ -354,7 +359,24 @@ int main()
                 model = glm::translate(model, squarePositions[i]);
                 squareTextures[i] = textureTable3;
             }
-
+            else if(i == 8) //right line 1
+            {
+                model = glm::scale(model, glm::vec3(0.01f, 0.01f, 0.21f));
+                model = glm::translate(model, squarePositions[i]);
+                squareTextures[i] = textureTable4;
+            }
+            else if(i == 9) //right line 2
+            {
+                model = glm::scale(model, glm::vec3(0.01f, 0.01f, 0.21f));
+                model = glm::translate(model, squarePositions[i]);
+                squareTextures[i] = textureTable4;
+            }
+            else if(i == 10) //right line 3
+            {
+                model = glm::scale(model, glm::vec3(0.01f, 0.01f, 0.21f));
+                model = glm::translate(model, squarePositions[i]);
+                squareTextures[i] = textureTable4;
+            }
             /* wood plate
             else if(i == 3) // horizontal top plate
             {
