@@ -27,7 +27,9 @@ std::vector<Shader> shaderList;
 
 float yaw = 0.0f, pitch = 0.0f;
 
-const GLbyte squareNum = 22;
+//Number of Sqaures
+const GLbyte squareNum = 31;
+
 unsigned int squareTextures[squareNum];
 
 //Vertex Shader
@@ -220,6 +222,8 @@ int main()
     glfwSetCursorPosCallback(mainWindow.getWindow(), mouse_callback);
     glfwSetInputMode(mainWindow.getWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
+
+    //Pre-Loaded Texture 
     unsigned int textureContainer = loadTexture("Textures/container.jpg");
     unsigned int textureCloth = loadTexture("Textures/cloth.jpg");
     unsigned int textureWall = loadTexture("Textures/wall.jpg");
@@ -232,6 +236,12 @@ int main()
     unsigned int textureTable2 = loadTexture("Textures/table2.jpg");
     unsigned int textureTable3 = loadTexture("Textures/table3.jpg");
     unsigned int textureTable4 = loadTexture("Textures/table4.jpg");
+
+    unsigned int textureDoor = loadTexture("Textures/door.jpg");
+    unsigned int textureDoorEdge = loadTexture("Textures/doorEdge.jpg");
+    unsigned int textureDoorPlate = loadTexture("Textures/doorPlate.jpg");
+    unsigned int textureDoorKnob = loadTexture("Textures/doorKnob.jpg");
+
 
     //Loop until window closed
     while (!mainWindow.getShouldClose())
@@ -285,11 +295,11 @@ int main()
             glm::vec3(1.0f, 2.0f, 3.0f),    // 6    bottom
 
             // middle plate wall 2
-            glm::vec3(3.0f, 21.0f, 1.0f),   // 7    middle-top
-            glm::vec3(3.0f, 9.0f, 1.0f),    // 8    middle-bottom
+            glm::vec3(3.0f, 19.0f, 1.0f),   // 7    middle-top
+            glm::vec3(3.0f, 7.0f, 1.0f),    // 8    middle-bottom
 
             // middle plate wall 1
-            glm::vec3(1.0f, 21.0f, 3.0f),   // 9    middle-top
+            glm::vec3(1.0f, 19.0f, 3.0f),   // 9    middle-top
 
             //vertical plate wall 2
             glm::vec3(3.0f, 1.0f, 23.0f),   // 10   vertical-left
@@ -299,17 +309,29 @@ int main()
             glm::vec3(9.0f, 1.0f, 3.0f),    // 12   vertical-left
 
             //corner plate
-            glm::vec3(2.0f, 1.0f, 2.0f),     // 13   corner
+            glm::vec3(2.0f, 1.0f, 2.0f),    // 13   corner
             
             // table
-            glm::vec3(1.0f, 24.0f, 1.67f),    // 14   top
-            glm::vec3(1.0f, 0.94f, 2.9f),     // 15   right big chest
-            glm::vec3(1.0f, 0.94f, 46.0f),    // 16   left leg 1
-            glm::vec3(15.0f, 0.94f, 46.0f),   // 17   left leg 2
-            glm::vec3(1.0f, 8.5f, 3.8f),      // 18   left chest
-            glm::vec3(47.0f, 35.5f, 2.9f),    // 19   right line 1
-            glm::vec3(47.0f, 25.5f, 2.9f),    // 20   right line 2
-            glm::vec3(47.0f, 14.5f, 2.9f),    // 21   right line 3
+            glm::vec3(1.0f, 24.0f, 1.67f),  // 14   top
+            glm::vec3(1.0f, 0.94f, 2.9f),   // 15   right big chest
+            glm::vec3(1.0f, 0.94f, 46.0f),  // 16   left leg 1
+            glm::vec3(15.0f, 0.94f, 46.0f), // 17   left leg 2
+            glm::vec3(1.0f, 8.5f, 3.8f),    // 18   left chest
+            glm::vec3(47.0f, 35.5f, 2.9f),  // 19   right line 1
+            glm::vec3(47.0f, 25.5f, 2.9f),  // 20   right line 2
+            glm::vec3(47.0f, 14.5f, 2.9f),  // 21   right line 3
+
+            // door
+            glm::vec3(2.25f, 1.125f, 6.0f), // 22   door 
+            glm::vec3(2.25f, 4.0f, 4.0f),   // 23   plate
+            glm::vec3(2.25f, 7.0f, 3.0f),   // 24   bottom edge
+            glm::vec3(2.25f, 101.0f, 3.0f), // 25   top edge
+            glm::vec3(61.0f, 1.125f, 3.0f), // 26   left edge
+            glm::vec3(108.0f, 1.125f, 3.0f),// 27   middle edge
+            glm::vec3(155.0f, 1.125f, 3.0f),// 28   right edge
+            glm::vec3(17.0f, 16.0f, 3.0f),  // 29   left knob
+            glm::vec3(37.0f, 16.0f, 3.0f),  // 30   right knob
+
         };
         
         glm::mat4 view (1.0f);
@@ -444,6 +466,37 @@ int main()
                 model = glm::scale(model, glm::vec3(0.01f, 0.01f, 0.21f));
                 model = glm::translate(model, squarePositions[i]);
                 squareTextures[i] = textureTable4;
+            }
+            // door
+            else if(i == 22) // door
+            {
+                model = glm::scale(model, glm::vec3(0.6f, 0.6f, 0.005f));
+                model = glm::translate(model, squarePositions[i]);
+                squareTextures[i] = textureDoor;
+            }
+            else if(i == 23) // plate
+            {
+                model = glm::scale(model, glm::vec3(0.6f, 0.2f, 0.0075f));
+                model = glm::translate(model, squarePositions[i]);
+                squareTextures[i] = textureDoorPlate;
+            }
+            else if(i <= 25) // (bottom-top) edge
+            {
+                model = glm::scale(model, glm::vec3(0.6f, 0.0125f, 0.01f));
+                model = glm::translate(model, squarePositions[i]);
+                squareTextures[i] = textureDoorEdge;
+            }
+            else if(i <= 28) // (left-middle-right) edge
+            {
+                model = glm::scale(model, glm::vec3(0.0125f, 0.6f, 0.01f));
+                model = glm::translate(model, squarePositions[i]);
+                squareTextures[i] = textureDoorEdge;
+            }
+            else if(i <= 30) // left-right knob
+            {
+                model = glm::scale(model, glm::vec3(0.05f, 0.05f, 0.01f));
+                model = glm::translate(model, squarePositions[i]);
+                squareTextures[i] = textureDoorKnob;
             }
 
             
