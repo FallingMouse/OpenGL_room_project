@@ -29,7 +29,7 @@ float yaw = 0.0f, pitch = 0.0f;
 
 
 //Number of Sqaures
-const GLbyte squareNum = 37;
+const GLbyte squareNum = 39;
 
 //Array for store pre-loaded textures
 unsigned int squareTextures[squareNum];
@@ -361,12 +361,13 @@ int main()
             glm::vec3(7.5f, 0.94f, 3.5f),       // 33     pillow
             
             // calendar
-            glm::vec3(1.5f, 4.5f, 3.0f)         // 34   calendar
+            glm::vec3(1.5f, 4.5f, 3.0f),        // 34   calendar
 
             // window
             glm::vec3(3.0f, 2.7f, 2.7f),        // 35     white Window
             glm::vec3(2.6f, 19.0f, 2.7f),       // 36     curtain (close to wood from wall 2)
-            glm::vec3(3.5f, 2.7f, 2.7f),        // 37     curtain (far from wall 2)
+            glm::vec3(7.6f, 2.65f, 7.2f),       // 37     Right curtain (far from wall 2)
+            glm::vec3(7.6f, 2.65f, 8.75f),       // 38     Left curtain (far from wall 2)
         };
         
 
@@ -563,9 +564,15 @@ int main()
                 model = glm::translate(model, squarePositions[i]);
                 squareTextures[i] = textureCurtainSolid;
             }
-            else if(i == 37) // curtain (far from wall 2)
+            else if(i == 37) // Right curtain (far from wall 2)
             {
-                model = glm::scale(model, glm::vec3(0.01f, 0.34f, 0.24f));
+                model = glm::scale(model, glm::vec3(0.01f, 0.37f, 0.20f));
+                model = glm::translate(model, squarePositions[i]);
+                squareTextures[i] = textureCurtainCloth;
+            }
+            else if(i == 38) // Left curtain (far from wall 2)
+            {
+                model = glm::scale(model, glm::vec3(0.01f, 0.37f, 0.10f));
                 model = glm::translate(model, squarePositions[i]);
                 squareTextures[i] = textureCurtainCloth;
             }
