@@ -345,7 +345,7 @@ int main()
             glm::vec3(37.0f, 16.0f, 3.0f),  // 32   right knob
 
             // pillow
-            glm::vec3(7.5f, 0.94f, 3.5f),     // 13     pillow
+            glm::vec3(7.5f, 0.94f, 3.5f),     // 33     pillow
 
             // glm::vec3(1.0f, 24.0f, 1.67f),  // 24   top
             // glm::vec3(1.0f, 0.94f, 2.9f),   // 25   right big chest
@@ -521,7 +521,9 @@ int main()
                 model = glm::translate(model, squarePositions[i]);
                 squareTextures[i] = textureDoorKnob;
             }
-            else if(i == 33) // pillow
+            
+            // pillow
+            else if(i == 33) 
             {
                 model = glm::scale(model, glm::vec3(0.20f, 0.03f, 0.20f));
                 model = glm::translate(model, squarePositions[i]);
