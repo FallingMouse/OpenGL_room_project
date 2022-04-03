@@ -28,6 +28,7 @@ std::vector<Shader> shaderList;
 float yaw = 0.0f, pitch = 0.0f;
 
 const GLbyte squareNum = 22;
+const GLbyte squareNum = 23;
 unsigned int squareTextures[squareNum];
 
 //Vertex Shader
@@ -235,6 +236,8 @@ int main()
     unsigned int textureTableReal2 = loadTexture("Textures/tableReal2.jpg");
     unsigned int textureTable1 = loadTexture("Textures/table1.jpg");
     unsigned int textureTable4 = loadTexture("Textures/table4.jpg");
+    
+    unsigned int textureBin = loadTexture("Textures/bin.jpg");
 
     //Loop until window closed
     while (!mainWindow.getShouldClose())
@@ -313,6 +316,9 @@ int main()
             glm::vec3(47.0f, 35.5f, 2.9f),    // 19   right line 1
             glm::vec3(47.0f, 25.5f, 2.9f),    // 20   right line 2
             glm::vec3(47.0f, 14.5f, 2.9f),    // 21   right line 3
+            
+            //bin
+            glm::vec3(2.0f, 0.94f, 1.5f),     // 13     bin
         };
         
         glm::mat4 view (1.0f);
@@ -412,41 +418,31 @@ int main()
                 model = glm::translate(model, squarePositions[i]);
                 squareTextures[i] = textureTableReal2;
             }
-            else if(i == 16) //left leg 1
+            else if(i >= 16 && i <= 17) //left leg 1
             {
                 model = glm::scale(model, glm::vec3(0.03f, 0.25f, 0.03f));
                 model = glm::translate(model, squarePositions[i]);
                 squareTextures[i] = textureTableReal2;
             }
-            else if(i == 17) //left leg 2
-            {
-                model = glm::scale(model, glm::vec3(0.03f, 0.25f, 0.03f));
-                model = glm::translate(model, squarePositions[i]);
-                squareTextures[i] = textureTableReal2;
-            }
-            else if(i == 18) //left chest
+            else if(i == 18) // left chest
             {
                 model = glm::scale(model, glm::vec3(0.23f, 0.05f, 0.29f));
                 model = glm::translate(model, squarePositions[i]);
                 squareTextures[i] = textureTableReal2;
             }
-            else if(i == 19) //right line 1
+            else if(i > 18 && i <= 21) // right line 1 2 3
             {
                 model = glm::scale(model, glm::vec3(0.01f, 0.01f, 0.21f));
                 model = glm::translate(model, squarePositions[i]);
                 squareTextures[i] = textureTable4;
             }
-            else if(i == 20) //right line 2
+            // bin
+            else if(i == 22) // bin
             {
-                model = glm::scale(model, glm::vec3(0.01f, 0.01f, 0.21f));
+                // model = glm::scale(model, glm::vec3(0.23f, 0.23f, 0.21f));
+                model = glm::scale(model, glm::vec3(0.13f, 0.15f, 0.13f));
                 model = glm::translate(model, squarePositions[i]);
-                squareTextures[i] = textureTable4;
-            }
-            else if(i == 21) //right line 3
-            {
-                model = glm::scale(model, glm::vec3(0.01f, 0.01f, 0.21f));
-                model = glm::translate(model, squarePositions[i]);
-                squareTextures[i] = textureTable4;
+                squareTextures[i] = textureBin;
             }
 
             
