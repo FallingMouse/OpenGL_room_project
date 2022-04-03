@@ -512,7 +512,9 @@ int main()
                 model = glm::translate(model, squarePositions[i]);
                 squareTextures[i] = textureDoorKnob;
             }
-            else if(i == 33) // pillow
+            
+            // pillow
+            else if(i == 33) 
             {
                 model = glm::scale(model, glm::vec3(0.20f, 0.03f, 0.20f));
                 model = glm::translate(model, squarePositions[i]);
