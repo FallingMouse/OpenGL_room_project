@@ -29,7 +29,7 @@ float yaw = 0.0f, pitch = 0.0f;
 
 
 //Number of Sqaures
-const GLbyte squareNum = 44;
+const GLbyte squareNum = 54;
 
 //Array for store pre-loaded textures
 unsigned int squareTextures[squareNum];
@@ -265,6 +265,13 @@ int main()
 
     unsigned int textureLampWhite = loadTexture("Textures/tableLampWhite.jpg");
     unsigned int textureLampBlue = loadTexture("Textures/tableLampBlue.jpg");
+    
+    unsigned int textureChairBack = loadTexture("Textures/chairBack.jpg");
+    unsigned int textureChairCushion = loadTexture("Textures/chairCushion.jpg");
+    unsigned int textureChairLeg = loadTexture("Textures/chairLeg.jpg");
+    unsigned int textureChairLumbar = loadTexture("Textures/chairLumbar.jpg");
+    unsigned int textureChairWheels = loadTexture("Textures/chairWheels.jpg");
+
 
     //Loop until window closed
     while (!mainWindow.getShouldClose())
@@ -378,7 +385,32 @@ int main()
             glm::vec3(7.8f, 4.7f, 43.2f),       // 40   lamp neck 1 (from base)
             glm::vec3(22.9f, 5.8f, 129.7f),     // 41   lamp neck 2
             glm::vec3(4.8f, 48.8f, 6.4f),       // 42   lamp head
-            glm::vec3(27.0f, 94.4f, 6.4f),       // 43   lamp light
+            glm::vec3(27.0f, 94.4f, 6.4f),      // 43   lamp light
+            // chair
+            glm::vec3(60.0f, 1.150f, 84.0f),    // 44   leg core
+            glm::vec3(60.0f, 2.5f, 7.0f),       // 45   leg 1 (z)
+            glm::vec3(5.0f, 2.5f, 84.0f),       // 46   leg 2 (x)
+            glm::vec3(59.5f, 5.0f, 70.0f),      // 47   wheel 1
+            glm::vec3(40.5f, 5.0f, 70.0f),      // 48   wheel 2
+            glm::vec3(50.0f, 5.0f, 79.5f),      // 49   wheel 3
+            glm::vec3(50.0f, 5.0f, 60.5f),      // 50   wheel 4
+            glm::vec3(6.5f, 9.5f, 10.5f),       // 51   cushion
+            glm::vec3(110.0f, 8.0f, 35.0f),     // 52   lumbar core
+            glm::vec3(55.0f, 5.5f, 9.35f),      // 53   back
+
+            
+
+
+
+
+            // glm::vec3(1.0f, 24.0f, 1.67f),  // 24   top
+            // glm::vec3(1.0f, 0.94f, 2.9f),   // 25   right big chest
+            // glm::vec3(1.0f, 0.94f, 46.0f),  // 26   left leg 1
+            // glm::vec3(15.0f, 0.94f, 46.0f), // 27   left leg 2
+            // glm::vec3(1.0f, 8.5f, 3.8f),    // 28   left chest
+            // glm::vec3(47.0f, 35.5f, 2.9f),  // 29   right line 1
+            // glm::vec3(47.0f, 25.5f, 2.9f),  // 30   right line 2
+            // glm::vec3(47.0f, 14.5f, 2.9f),  // 31   right line 3
         };
         
 
@@ -550,13 +582,13 @@ int main()
             }
             
             // pillow
-            else if(i == 33) // pillow
+            else if (i == 33) 
             {
                 model = glm::scale(model, glm::vec3(0.20f, 0.03f, 0.20f));
                 model = glm::translate(model, squarePositions[i]);
                 squareTextures[i] = texturePillow;
             }
-            
+
             // calendar
             else if (i == 34)
             {
@@ -564,7 +596,7 @@ int main()
                 model = glm::translate(model, squarePositions[i]);
                 squareTextures[i] = textureCalendar;
             }
-            
+
             // window
             else if(i == 35) // white window
             {
@@ -621,6 +653,50 @@ int main()
                 model = glm::scale(model, glm::vec3(0.01f, 0.01f, 0.2f));
                 model = glm::translate(model, squarePositions[i]);
                 squareTextures[i] = textureLampWhite;
+            }
+
+            // chair
+            else if (i == 44) // leg core
+            {
+                model = glm::scale(model, glm::vec3(0.0125f, 0.1f, 0.0125f));
+                model = glm::translate(model, squarePositions[i]);
+                squareTextures[i] = textureChairLeg;
+            } 
+            else if (i == 45) // leg 1 (z)
+            {
+                model = glm::scale(model, glm::vec3(0.0125f, 0.0125f, 0.15f));
+                model = glm::translate(model, squarePositions[i]);
+                squareTextures[i] = textureChairLeg;
+            }
+            else if (i == 46) // leg 2 (x)
+            {
+                model = glm::scale(model, glm::vec3(0.15f, 0.0125f, 0.0125f));
+                model = glm::translate(model, squarePositions[i]);
+                squareTextures[i] = textureChairLeg;
+            }
+            else if (i <= 50) // wheels (1-4)
+            {
+                model = glm::scale(model, glm::vec3(0.0150f, 0.005f, 0.0150f));
+                model = glm::translate(model, squarePositions[i]);
+                squareTextures[i] = textureChairWheels;
+            }
+            else if (i == 51) // cushion
+            {
+                model = glm::scale(model, glm::vec3(0.1125f, 0.025f, 0.1f));
+                model = glm::translate(model, squarePositions[i]);
+                squareTextures[i] = textureChairCushion;
+            }
+            else if (i == 52) // lumbar core
+            {
+                model = glm::scale(model, glm::vec3(0.0075f, 0.0375f, 0.03f));
+                model = glm::translate(model, squarePositions[i]);
+                squareTextures[i] = textureChairLumbar;
+            }
+            else if (i == 53) // back
+            {
+                model = glm::scale(model, glm::vec3(0.015f, 0.075f, 0.1125f));
+                model = glm::translate(model, squarePositions[i]);
+                squareTextures[i] = textureChairBack;
             }
             
             // model = glm::translate(model, squarePositions[i]);
