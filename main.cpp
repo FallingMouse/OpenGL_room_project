@@ -228,6 +228,8 @@ int main()
     unsigned int textureWoodPlate2 = loadTexture("Textures/woodPlate2.jpg");
 
     unsigned int textureBackground = loadTexture("Textures/background.jpg");
+    unsigned int textureTableReal1 = loadTexture("Textures/tableReal.jpg");
+    unsigned int textureTableReal2 = loadTexture("Textures/tableReal2.jpg");
     unsigned int textureTable1 = loadTexture("Textures/table1.jpg");
     unsigned int textureTable2 = loadTexture("Textures/table2.jpg");
     unsigned int textureTable3 = loadTexture("Textures/table3.jpg");
@@ -401,31 +403,31 @@ int main()
             {
                 model = glm::scale(model, glm::vec3(0.25f, 0.02f, 0.55f));
                 model = glm::translate(model, squarePositions[i]);
-                squareTextures[i] = textureTable1;
+                squareTextures[i] = textureTableReal1;
             }
             else if(i == 15) //table right big chest
             {
                 model = glm::scale(model, glm::vec3(0.23f, 0.23f, 0.21f));
                 model = glm::translate(model, squarePositions[i]);
-                squareTextures[i] = textureTable2;
+                squareTextures[i] = textureTableReal2;
             }
             else if(i == 16) //left leg 1
             {
                 model = glm::scale(model, glm::vec3(0.03f, 0.25f, 0.03f));
                 model = glm::translate(model, squarePositions[i]);
-                squareTextures[i] = textureTable2;
+                squareTextures[i] = textureTableReal2;
             }
             else if(i == 17) //left leg 2
             {
                 model = glm::scale(model, glm::vec3(0.03f, 0.25f, 0.03f));
                 model = glm::translate(model, squarePositions[i]);
-                squareTextures[i] = textureTable2;
+                squareTextures[i] = textureTableReal2;
             }
             else if(i == 18) //left chest
             {
                 model = glm::scale(model, glm::vec3(0.23f, 0.05f, 0.29f));
                 model = glm::translate(model, squarePositions[i]);
-                squareTextures[i] = textureTable3;
+                squareTextures[i] = textureTable4;
             }
             else if(i == 19) //right line 1
             {
