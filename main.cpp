@@ -27,7 +27,7 @@ std::vector<Shader> shaderList;
 
 float yaw = 0.0f, pitch = 0.0f;
 
-const GLbyte squareNum = 24;
+const GLbyte squareNum = 25;
 unsigned int squareTextures[squareNum];
 
 //Vertex Shader
@@ -237,6 +237,9 @@ int main()
 
     unsigned int textureBin = loadTexture("Textures/bin.jpg");
     unsigned int textureBin2 = loadTexture("Textures/bin2.jpg");
+    
+    unsigned int texturePillow = loadTexture("Textures/pillow.jpg");
+
 
     //Loop until window closed
     while (!mainWindow.getShouldClose())
@@ -316,9 +319,12 @@ int main()
             glm::vec3(55.0f, 25.5f, 2.9f),    // 20   right line 2
             glm::vec3(55.0f, 14.5f, 2.9f),    // 21   right line 3
             
-            //bin
+            // bin
             glm::vec3(3.2f, 15.40f, 1.5f),     // 13     bin - top
             glm::vec3(3.2f, 0.94f, 1.5f),     // 13     bin - below
+
+            // pillow
+            glm::vec3(7.5f, 0.94f, 3.5f),     // 13     pillow
         };
         
         glm::mat4 view (1.0f);
@@ -439,17 +445,21 @@ int main()
             // bin
             else if(i == 22) // bin top
             {
-                // model = glm::scale(model, glm::vec3(0.23f, 0.23f, 0.21f));
                 model = glm::scale(model, glm::vec3(0.13f, 0.02f, 0.13f));
                 model = glm::translate(model, squarePositions[i]);
                 squareTextures[i] = textureBin2;
             }
             else if(i == 23) // bin below
             {
-                // model = glm::scale(model, glm::vec3(0.23f, 0.23f, 0.21f));
                 model = glm::scale(model, glm::vec3(0.13f, 0.15f, 0.13f));
                 model = glm::translate(model, squarePositions[i]);
                 squareTextures[i] = textureBin;
+            }
+            else if(i == 24) // pillow
+            {
+                model = glm::scale(model, glm::vec3(0.20f, 0.03f, 0.20f));
+                model = glm::translate(model, squarePositions[i]);
+                squareTextures[i] = texturePillow;
             }
             
             // model = glm::translate(model, squarePositions[i]);
