@@ -346,15 +346,6 @@ int main()
 
             // pillow
             glm::vec3(7.5f, 0.94f, 3.5f),     // 13     pillow
-
-            // glm::vec3(1.0f, 24.0f, 1.67f),  // 24   top
-            // glm::vec3(1.0f, 0.94f, 2.9f),   // 25   right big chest
-            // glm::vec3(1.0f, 0.94f, 46.0f),  // 26   left leg 1
-            // glm::vec3(15.0f, 0.94f, 46.0f), // 27   left leg 2
-            // glm::vec3(1.0f, 8.5f, 3.8f),    // 28   left chest
-            // glm::vec3(47.0f, 35.5f, 2.9f),  // 29   right line 1
-            // glm::vec3(47.0f, 25.5f, 2.9f),  // 30   right line 2
-            // glm::vec3(47.0f, 14.5f, 2.9f),  // 31   right line 3
             
         };
         
