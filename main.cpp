@@ -222,17 +222,18 @@ int main()
 
     unsigned int textureContainer = loadTexture("Textures/container.jpg");
     unsigned int textureCloth = loadTexture("Textures/cloth.jpg");
+
     unsigned int textureWall = loadTexture("Textures/wall.jpg");
     unsigned int textureFloor = loadTexture("Textures/floor.jpg");
+    
     unsigned int textureWoodPlate1 = loadTexture("Textures/woodPlate1.jpg");
     unsigned int textureWoodPlate2 = loadTexture("Textures/woodPlate2.jpg");
 
     unsigned int textureBackground = loadTexture("Textures/background.jpg");
+
     unsigned int textureTableReal1 = loadTexture("Textures/tableReal.jpg");
     unsigned int textureTableReal2 = loadTexture("Textures/tableReal2.jpg");
     unsigned int textureTable1 = loadTexture("Textures/table1.jpg");
-    unsigned int textureTable2 = loadTexture("Textures/table2.jpg");
-    unsigned int textureTable3 = loadTexture("Textures/table3.jpg");
     unsigned int textureTable4 = loadTexture("Textures/table4.jpg");
 
     //Loop until window closed
@@ -427,7 +428,7 @@ int main()
             {
                 model = glm::scale(model, glm::vec3(0.23f, 0.05f, 0.29f));
                 model = glm::translate(model, squarePositions[i]);
-                squareTextures[i] = textureTable4;
+                squareTextures[i] = textureTableReal2;
             }
             else if(i == 19) //right line 1
             {
