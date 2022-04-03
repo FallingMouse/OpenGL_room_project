@@ -299,7 +299,7 @@ int main()
             glm::vec3(9.0f, 1.0f, 3.0f),    // 12   vertical-left
 
             //corner plate
-            glm::vec3(2.0f, 1.0f, 2.0f),     // 13   corner
+            glm::vec3(2.0f, 1.0f, 2.0f)     // 13   corner
             
             // table
             glm::vec3(1.0f, 24.0f, 1.67f),    // 14   top
@@ -433,7 +433,7 @@ int main()
                 model = glm::translate(model, squarePositions[i]);
                 squareTextures[i] = textureTable4;
             }
-            else if(i == 20) //right line 2
+            else if(i == 29) //right line 2
             {
                 model = glm::scale(model, glm::vec3(0.01f, 0.01f, 0.21f));
                 model = glm::translate(model, squarePositions[i]);
