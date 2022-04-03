@@ -27,7 +27,7 @@ std::vector<Shader> shaderList;
 
 float yaw = 0.0f, pitch = 0.0f;
 
-const GLbyte squareNum = 23;
+const GLbyte squareNum = 24;
 unsigned int squareTextures[squareNum];
 
 //Vertex Shader
@@ -134,7 +134,6 @@ void CreateSquare()
     }
 }
 
-
 void CreateShaders()
 {
     Shader* shader1 = new Shader();
@@ -235,8 +234,9 @@ int main()
     unsigned int textureTableReal2 = loadTexture("Textures/tableReal2.jpg");
     unsigned int textureTable1 = loadTexture("Textures/table1.jpg");
     unsigned int textureTable4 = loadTexture("Textures/table4.jpg");
-    
+
     unsigned int textureBin = loadTexture("Textures/bin.jpg");
+    unsigned int textureBin2 = loadTexture("Textures/bin2.jpg");
 
     //Loop until window closed
     while (!mainWindow.getShouldClose())
@@ -307,17 +307,18 @@ int main()
             glm::vec3(2.0f, 1.0f, 2.0f),     // 13   corner
             
             // table
-            glm::vec3(1.0f, 24.0f, 1.67f),    // 14   top
-            glm::vec3(1.0f, 0.94f, 2.9f),     // 15   right big chest
-            glm::vec3(1.0f, 0.94f, 46.0f),    // 16   left leg 1
-            glm::vec3(15.0f, 0.94f, 46.0f),   // 17   left leg 2
-            glm::vec3(1.0f, 8.5f, 3.8f),      // 18   left chest
-            glm::vec3(47.0f, 35.5f, 2.9f),    // 19   right line 1
-            glm::vec3(47.0f, 25.5f, 2.9f),    // 20   right line 2
-            glm::vec3(47.0f, 14.5f, 2.9f),    // 21   right line 3
+            glm::vec3(1.3f, 24.0f, 1.67f),    // 14   top
+            glm::vec3(1.3f, 0.94f, 2.9f),     // 15   right big chest
+            glm::vec3(3.3f, 0.94f, 46.0f),    // 16   left leg 1
+            glm::vec3(17.5f, 0.94f, 46.0f),   // 17   left leg 2
+            glm::vec3(1.4f, 8.5f, 3.8f),      // 18   left chest
+            glm::vec3(55.0f, 35.5f, 2.9f),    // 19   right line 1
+            glm::vec3(55.0f, 25.5f, 2.9f),    // 20   right line 2
+            glm::vec3(55.0f, 14.5f, 2.9f),    // 21   right line 3
             
             //bin
-            glm::vec3(2.0f, 0.94f, 1.5f),     // 13     bin
+            glm::vec3(3.2f, 15.40f, 1.5f),     // 13     bin - top
+            glm::vec3(3.2f, 0.94f, 1.5f),     // 13     bin - below
         };
         
         glm::mat4 view (1.0f);
@@ -436,14 +437,20 @@ int main()
                 squareTextures[i] = textureTable4;
             }
             // bin
-            else if(i == 22) // bin
+            else if(i == 22) // bin top
+            {
+                // model = glm::scale(model, glm::vec3(0.23f, 0.23f, 0.21f));
+                model = glm::scale(model, glm::vec3(0.13f, 0.02f, 0.13f));
+                model = glm::translate(model, squarePositions[i]);
+                squareTextures[i] = textureBin2;
+            }
+            else if(i == 23) // bin below
             {
                 // model = glm::scale(model, glm::vec3(0.23f, 0.23f, 0.21f));
                 model = glm::scale(model, glm::vec3(0.13f, 0.15f, 0.13f));
                 model = glm::translate(model, squarePositions[i]);
                 squareTextures[i] = textureBin;
             }
-
             
             // model = glm::translate(model, squarePositions[i]);
             // model = glm::rotate(model, glm::radians(2.0f * i) ,glm::vec3(1.0f, 0.3f, 0.5f));
