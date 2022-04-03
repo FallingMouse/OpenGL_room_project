@@ -27,7 +27,6 @@ std::vector<Shader> shaderList;
 
 float yaw = 0.0f, pitch = 0.0f;
 
-const GLbyte squareNum = 22;
 const GLbyte squareNum = 23;
 unsigned int squareTextures[squareNum];
 
