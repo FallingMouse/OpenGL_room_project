@@ -28,7 +28,7 @@ std::vector<Shader> shaderList;
 float yaw = 0.0f, pitch = 0.0f;
 
 //Number of Sqaures
-const GLbyte squareNum = 34;
+const GLbyte squareNum = 35;
 
 unsigned int squareTextures[squareNum];
 
@@ -244,6 +244,7 @@ int main()
     
     unsigned int texturePillow = loadTexture("Textures/pillow.jpg");
 
+    unsigned int textureWindowWhite = loadTexture("Textures/windowWhite.jpg");
 
     unsigned int textureDoor = loadTexture("Textures/door.jpg");
     unsigned int textureDoorEdge = loadTexture("Textures/doorEdge.jpg");
@@ -322,8 +323,8 @@ int main()
             // table
             glm::vec3(1.3f, 24.0f, 1.67f),    // 14   top
             glm::vec3(1.3f, 0.94f, 2.9f),     // 15   right big chest
-            glm::vec3(3.3f, 0.94f, 46.0f),    // 16   left leg 1
-            glm::vec3(17.5f, 0.94f, 46.0f),   // 17   left leg 2
+            glm::vec3(3.3f, 0.94f, 46.0f),    // 16   left leg 1 (close to wall 2)
+            glm::vec3(17.5f, 0.94f, 46.0f),   // 17   left leg 2 (far from wall 2)
             glm::vec3(1.4f, 8.5f, 3.8f),      // 18   left chest
             glm::vec3(55.0f, 35.5f, 2.9f),    // 19   right line 1
             glm::vec3(55.0f, 25.5f, 2.9f),    // 20   right line 2
@@ -345,7 +346,10 @@ int main()
             glm::vec3(37.0f, 16.0f, 3.0f),  // 32   right knob
 
             // pillow
-            glm::vec3(7.5f, 0.94f, 3.5f),     // 13     pillow
+            glm::vec3(7.5f, 0.94f, 3.5f),     // 33     pillow
+
+            // window
+            glm::vec3(3.0f, 49.0f, 1.0f),     // 34     white Window
             
         };
         
@@ -512,13 +516,22 @@ int main()
                 model = glm::translate(model, squarePositions[i]);
                 squareTextures[i] = textureDoorKnob;
             }
+            
+            // pillow
             else if(i == 33) // pillow
             {
                 model = glm::scale(model, glm::vec3(0.20f, 0.03f, 0.20f));
                 model = glm::translate(model, squarePositions[i]);
                 squareTextures[i] = texturePillow;
             }
-
+            
+            // window
+            else if(i == 34) // white window
+            {
+                model = glm::scale(model, glm::vec3(0.01f, 0.025f, 0.6f));
+                model = glm::translate(model, squarePositions[i]);
+                squareTextures[i] = textureWindowWhite;
+            }
             
             // model = glm::translate(model, squarePositions[i]);
             // model = glm::rotate(model, glm::radians(2.0f * i) ,glm::vec3(1.0f, 0.3f, 0.5f));
