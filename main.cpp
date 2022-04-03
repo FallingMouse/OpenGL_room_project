@@ -341,6 +341,7 @@ int main()
             glm::vec3(17.0f, 16.0f, 3.0f),  // 31   left knob
             glm::vec3(37.0f, 16.0f, 3.0f),  // 32   right knob
 
+
             // glm::vec3(1.0f, 24.0f, 1.67f),  // 24   top
             // glm::vec3(1.0f, 0.94f, 2.9f),   // 25   right big chest
             // glm::vec3(1.0f, 0.94f, 46.0f),  // 26   left leg 1
@@ -349,7 +350,7 @@ int main()
             // glm::vec3(47.0f, 35.5f, 2.9f),  // 29   right line 1
             // glm::vec3(47.0f, 25.5f, 2.9f),  // 30   right line 2
             // glm::vec3(47.0f, 14.5f, 2.9f),  // 31   right line 3
-
+            
         };
         
         glm::mat4 view (1.0f);
@@ -393,6 +394,7 @@ int main()
                 model = glm::translate(model, squarePositions[i]);
                 squareTextures[i] = textureWall;
             }
+            
             // wood plate
             else if(i <= 4) // (top/bottom) plate wall 2
             {
@@ -436,6 +438,7 @@ int main()
                 model = glm::translate(model, squarePositions[i]);
                 squareTextures[i] = textureWoodPlate1;
             }
+
             // table
             else if(i == 14) //table top
             {
@@ -467,6 +470,7 @@ int main()
                 model = glm::translate(model, squarePositions[i]);
                 squareTextures[i] = textureTable4;
             }
+
             // bin
             else if(i == 22) // bin top
             {
@@ -482,6 +486,7 @@ int main()
                 model = glm::translate(model, squarePositions[i]);
                 squareTextures[i] = textureBin;
             }
+
             // door
             else if(i == 24) // door
             {
