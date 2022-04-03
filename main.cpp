@@ -29,7 +29,7 @@ float yaw = 0.0f, pitch = 0.0f;
 
 
 //Number of Sqaures
-const GLbyte squareNum = 35;
+const GLbyte squareNum = 37;
 
 //Array for store pre-loaded textures
 unsigned int squareTextures[squareNum];
@@ -251,6 +251,8 @@ int main()
     unsigned int texturePillow = loadTexture("Textures/pillow.jpg");
 
     unsigned int textureWindowWhite = loadTexture("Textures/windowWhite.jpg");
+    unsigned int textureCurtainSolid = loadTexture("Textures/curtainSolid.jpg");
+    unsigned int textureCurtainCloth = loadTexture("Textures/curtainCloth.jpg");
 
     unsigned int textureDoor = loadTexture("Textures/door.jpg");
     unsigned int textureDoorEdge = loadTexture("Textures/doorEdge.jpg");
@@ -356,13 +358,15 @@ int main()
             glm::vec3(37.0f, 16.0f, 3.0f),      // 32   right knob
 
             // pillow
-            glm::vec3(7.5f, 0.94f, 3.5f),     // 33     pillow
-
-            // window
-            glm::vec3(3.0f, 49.0f, 1.0f),     // 34     white Window
+            glm::vec3(7.5f, 0.94f, 3.5f),       // 33     pillow
             
             // calendar
             glm::vec3(1.5f, 4.5f, 3.0f)         // 34   calendar
+
+            // window
+            glm::vec3(3.0f, 2.7f, 2.7f),        // 35     white Window
+            glm::vec3(2.6f, 19.0f, 2.7f),       // 36     curtain (close to wood from wall 2)
+            glm::vec3(3.5f, 2.7f, 2.7f),        // 37     curtain (far from wall 2)
         };
         
 
@@ -538,18 +542,32 @@ int main()
                 squareTextures[i] = texturePillow;
             }
             
-            // window
-            else if(i == 34) // white window
-            {
-                model = glm::scale(model, glm::vec3(0.01f, 0.025f, 0.6f));
-                model = glm::translate(model, squarePositions[i]);
-                squareTextures[i] = textureWindowWhite;
             // calendar
-            else if (i == 35)
+            else if (i == 34)
             {
                 model = glm::scale(model, glm::vec3(0.225f, 0.225f, 0.01f));
                 model = glm::translate(model, squarePositions[i]);
                 squareTextures[i] = textureCalendar;
+            }
+            
+            // window
+            else if(i == 35) // white window
+            {
+                model = glm::scale(model, glm::vec3(0.01f, 0.36f, 0.45f));
+                model = glm::translate(model, squarePositions[i]);
+                squareTextures[i] = textureWindowWhite;
+            }
+            else if(i == 36) // curtain (close to wood from wall 2)
+            {
+                model = glm::scale(model, glm::vec3(0.04f, 0.075f, 0.45f));
+                model = glm::translate(model, squarePositions[i]);
+                squareTextures[i] = textureCurtainSolid;
+            }
+            else if(i == 37) // curtain (far from wall 2)
+            {
+                model = glm::scale(model, glm::vec3(0.01f, 0.34f, 0.24f));
+                model = glm::translate(model, squarePositions[i]);
+                squareTextures[i] = textureCurtainCloth;
             }
             
             // model = glm::translate(model, squarePositions[i]);
