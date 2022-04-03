@@ -523,7 +523,6 @@ int main()
                 model = glm::translate(model, squarePositions[i]);
                 squareTextures[i] = texturePillow;
             }
-
             
             // model = glm::translate(model, squarePositions[i]);
             // model = glm::rotate(model, glm::radians(2.0f * i) ,glm::vec3(1.0f, 0.3f, 0.5f));
