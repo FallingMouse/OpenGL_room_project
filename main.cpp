@@ -29,7 +29,7 @@ float yaw = 0.0f, pitch = 0.0f;
 
 
 //Number of Sqaures
-const GLbyte squareNum = 54;
+const GLbyte squareNum = 55;
 
 //Array for store pre-loaded textures
 unsigned int squareTextures[squareNum];
@@ -272,6 +272,8 @@ int main()
     unsigned int textureChairLumbar = loadTexture("Textures/chairLumbar.jpg");
     unsigned int textureChairWheels = loadTexture("Textures/chairWheels.jpg");
 
+    unsigned int textureClock = loadTexture("Textures/clock.jpg");
+
 
     //Loop until window closed
     while (!mainWindow.getShouldClose())
@@ -398,19 +400,9 @@ int main()
             glm::vec3(110.0f, 8.0f, 35.0f),     // 52   lumbar core
             glm::vec3(55.0f, 5.5f, 9.35f),      // 53   back
 
+            // clock
+            glm::vec3(13.5f, 17.25f, 3.0f),       // 54   clock
             
-
-
-
-
-            // glm::vec3(1.0f, 24.0f, 1.67f),  // 24   top
-            // glm::vec3(1.0f, 0.94f, 2.9f),   // 25   right big chest
-            // glm::vec3(1.0f, 0.94f, 46.0f),  // 26   left leg 1
-            // glm::vec3(15.0f, 0.94f, 46.0f), // 27   left leg 2
-            // glm::vec3(1.0f, 8.5f, 3.8f),    // 28   left chest
-            // glm::vec3(47.0f, 35.5f, 2.9f),  // 29   right line 1
-            // glm::vec3(47.0f, 25.5f, 2.9f),  // 30   right line 2
-            // glm::vec3(47.0f, 14.5f, 2.9f),  // 31   right line 3
         };
         
 
@@ -698,9 +690,15 @@ int main()
                 model = glm::translate(model, squarePositions[i]);
                 squareTextures[i] = textureChairBack;
             }
-            
-            // model = glm::translate(model, squarePositions[i]);
-            // model = glm::rotate(model, glm::radians(2.0f * i) ,glm::vec3(1.0f, 0.3f, 0.5f));
+
+            // clock
+            else if (i == 54)
+            {
+                model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.01f));
+                model = glm::translate(model, squarePositions[i]);
+                squareTextures[i] = textureClock;
+            }
+
 
             glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
             glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(view));
