@@ -29,7 +29,7 @@ float yaw = 0.0f, pitch = 0.0f;
 
 
 //Number of Sqaures
-const GLbyte squareNum = 39;
+const GLbyte squareNum = 44;
 
 //Array for store pre-loaded textures
 unsigned int squareTextures[squareNum];
@@ -261,6 +261,8 @@ int main()
 
     unsigned int textureCalendar = loadTexture("Textures/calendar.jpg");
 
+    unsigned int textureLampWhite = loadTexture("Textures/tableLampWhite.jpg");
+    unsigned int textureLampBlue = loadTexture("Textures/tableLampBlue.jpg");
 
     //Loop until window closed
     while (!mainWindow.getShouldClose())
@@ -358,16 +360,23 @@ int main()
             glm::vec3(37.0f, 16.0f, 3.0f),      // 32   right knob
 
             // pillow
-            glm::vec3(7.5f, 0.94f, 3.5f),       // 33     pillow
+            glm::vec3(7.5f, 0.94f, 3.5f),       // 33   pillow
             
             // calendar
             glm::vec3(1.5f, 4.5f, 3.0f),        // 34   calendar
 
             // window
-            glm::vec3(3.0f, 2.7f, 2.7f),        // 35     white Window
-            glm::vec3(2.6f, 19.0f, 2.7f),       // 36     curtain (close to wood from wall 2)
-            glm::vec3(7.6f, 2.65f, 7.2f),       // 37     Right curtain (far from wall 2)
-            glm::vec3(7.6f, 2.65f, 8.75f),       // 38     Left curtain (far from wall 2)
+            glm::vec3(3.0f, 2.7f, 2.7f),        // 35   white Window
+            glm::vec3(2.6f, 19.0f, 2.7f),       // 36   curtain (close to wood from wall 2)
+            glm::vec3(7.6f, 2.65f, 7.2f),       // 37   Right curtain (far from wall 2)
+            glm::vec3(7.6f, 2.65f, 8.75f),      // 38   Left curtain (far from wall 2)
+
+            // lamp
+            glm::vec3(2.9f, 25.9f, 16.2f),      // 39   lamp base
+            glm::vec3(7.8f, 4.7f, 43.2f),       // 40   lamp neck 1 (from base)
+            glm::vec3(22.9f, 5.8f, 129.7f),     // 41   lamp neck 2
+            glm::vec3(4.8f, 48.8f, 6.4f),       // 42   lamp head
+            glm::vec3(27.0f, 94.4f, 6.4f),       // 43   lamp light
         };
         
 
@@ -575,6 +584,38 @@ int main()
                 model = glm::scale(model, glm::vec3(0.01f, 0.37f, 0.10f));
                 model = glm::translate(model, squarePositions[i]);
                 squareTextures[i] = textureCurtainCloth;
+            }
+
+            // lamp
+            else if(i == 39) // lamp base
+            {
+                model = glm::scale(model, glm::vec3(0.08f, 0.02f, 0.08f));
+                model = glm::translate(model, squarePositions[i]);
+                squareTextures[i] = textureLampBlue;
+            }
+            else if(i == 40) // lamp neck 1
+            {
+                model = glm::scale(model, glm::vec3(0.03f, 0.14f, 0.03f));
+                model = glm::translate(model, squarePositions[i]);
+                squareTextures[i] = textureLampBlue;
+            }
+            else if(i == 41) // lamp neck 2
+            {
+                model = glm::scale(model, glm::vec3(0.01f, 0.14f, 0.01f));
+                model = glm::translate(model, squarePositions[i]);
+                squareTextures[i] = textureLampWhite;
+            }
+            else if(i == 42) // lamp head
+            {
+                model = glm::scale(model, glm::vec3(0.05f, 0.02f, 0.2f));
+                model = glm::translate(model, squarePositions[i]);
+                squareTextures[i] = textureLampBlue;
+            }
+            else if(i == 43) // lamp light
+            {
+                model = glm::scale(model, glm::vec3(0.01f, 0.01f, 0.2f));
+                model = glm::translate(model, squarePositions[i]);
+                squareTextures[i] = textureLampWhite;
             }
             
             // model = glm::translate(model, squarePositions[i]);
