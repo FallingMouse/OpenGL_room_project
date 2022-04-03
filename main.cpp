@@ -514,7 +514,6 @@ int main()
                 model = glm::translate(model, squarePositions[i]);
                 squareTextures[i] = textureDoorKnob;
             }
-            
             // pillow
             else if(i == 33) 
             {
