@@ -1,4 +1,4 @@
-# OpenGL_DemoProject
+# OpenGL Room Project
 A room model created with **C++** by using **OpenGL**.
 
 ### Image 🔲
