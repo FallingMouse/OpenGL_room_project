@@ -25,15 +25,14 @@ Window mainWindow;
 std::vector<Mesh*> meshList;
 std::vector<Shader> shaderList;
 
+glm::vec3 lightColour = glm::vec3(1.0f, 1.0f, 1.0f);
+glm::vec3 lightPos = glm::vec3(5.0f, 5.0f, 0.0f);
+
 float yaw = 0.0f, pitch = 0.0f;
 
-
-//Number of Sqaures
-const GLbyte squareNum = 55;
-
-//Array for store pre-loaded textures
-unsigned int squareTextures[squareNum];
-
+Mesh* light;
+static const char* lightVShader = "Shaders/lightShader.vert";
+static const char* lightFShader = "Shaders/lightShader.frag";
 
 //Vertex Shader
 static const char* vShader = "Shaders/shader.vert";
@@ -41,6 +40,11 @@ static const char* vShader = "Shaders/shader.vert";
 //Fragment Shader
 static const char* fShader = "Shaders/shader.frag";
 
+//Number of Sqaures
+const GLbyte squareNum = 55;
+
+//Array for store pre-loaded textures
+unsigned int squareTextures[squareNum];
 
 void CreateTriangle()
 {
@@ -141,11 +145,40 @@ void CreateSquare()
     }
 }
 
+void CreateOBJ()
+{
+    Mesh *obj1 = new Mesh();
+    bool loaded = obj1->CreateMeshFromOBJ("Models/suzanne.obj");
+    if (loaded)
+    {
+        for (int i = 0; i < 10; i++)
+        {
+            meshList.push_back(obj1);
+        }
+    }
+    else
+    {
+        std::cout<<"Failed to load model"<<std::endl;
+    }
+    
+    light = new Mesh();
+    loaded = light->CreateMeshFromOBJ("Models/cube.obj");
+    if (!loaded)
+    {
+        std::cout<<"Failed to load model"<<std::endl;
+        delete(light);
+    }
+}
+
 void CreateShaders()
 {
     Shader* shader1 = new Shader();
     shader1->CreateFromFiles(vShader, fShader);
-    shaderList.push_back(*shader1);
+    shaderList.push_back(shader1);
+    
+    Shader* shader2 = new Shader();
+    shader2->CreateFromFiles(lightVShader, lightFShader);
+    shaderList.push_back(shader2);
 }
 
 void mouse_callback(GLFWwindow* window, double xPos, double yPos) {
@@ -205,7 +238,6 @@ int main()
     mainWindow.initialise();
 
     CreateSquare();
-
     CreateShaders();
 
     GLuint uniformModel = 0, uniformProjection = 0, uniformView = 0;
@@ -280,6 +312,10 @@ int main()
     {
         //Get + Handle user input events
         glfwPollEvents();
+
+        lightPos.x = 1.0f + sin(glfwGetTime()) * 2.0f;
+        lightPos.y = sin(glfwGetTime() / 2.0f);
+        lightPos.z = 0.0f;
 
         glm::vec3 direction;
         direction.x = cos(glm::radians(pitch)) * cos(glm::radians(yaw));
@@ -703,6 +739,12 @@ int main()
             glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
             glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(view));
             glUniformMatrix4fv(uniformProjection, 1, GL_FALSE, glm::value_ptr(projection));
+
+            // light
+            glUniform3fv(shaderList[0]->GetUniformLocation("lightColour"), 1, (GLfloat *)&lightColour);
+            glUniform3fv(shaderList[0]->GetUniformLocation("lightPos"), 1, (GLfloat *)&lightPos);
+
+            glUniform3fv(shaderList[0]->GetUniformLocation("viewPos"), 1, (GLfloat *)&cameraPos);
 
             glActiveTexture(GL_TEXTURE0);
             glBindTexture(GL_TEXTURE_2D, squareTextures[i]);

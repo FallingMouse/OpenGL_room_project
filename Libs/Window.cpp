@@ -5,7 +5,7 @@ Window::Window()
     width = 800;
     height = 600;
     glfwMajorVersion = 3;
-    glfwMinorVersion = 3;
+    glfwMinorVersion = 1;
 }
 
 Window::Window(GLint windowWidth, GLint windowHeight, GLint majorVersion, GLint minorVersion)
@@ -38,7 +38,7 @@ int Window::initialise()
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, glfwMinorVersion);
 
     //Core Profile = No Backwards Compatibility
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    glfwWindowHint(GLFW_OPENGL_ANY_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     //Allow forward compatibility
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 

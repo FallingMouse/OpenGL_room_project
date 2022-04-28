@@ -17,15 +17,14 @@ class Window
         GLint getBufferWidth() {return bufferWidth;}
         GLint getBufferHeight() {return bufferHeight;}
 
-        GLFWwindow* getWindow() { return mainWindow; }
-
         bool getShouldClose() {return glfwWindowShouldClose(mainWindow);}
 
         void swapBuffers() {glfwSwapBuffers(mainWindow);}
 
+        GLFWwindow* getWindow() { return mainWindow; }
 
     private:
-        GLFWwindow* mainWindow; 
+        GLFWwindow* mainWindow;
         GLint glfwMajorVersion, glfwMinorVersion;
         GLint width, height;
         GLint bufferWidth, bufferHeight;
